@@ -20,77 +20,82 @@ function Nav() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 py-3 backdrop-blur-lg border-b border-neutral-700/80 mb-4 shadow-[0_0_15px_rgba(102,116,204,0.7)]">
-      <div className="container px-4 mx-auto relative text-sm">
-        <div className="flex justify-around  items-center">
-          <div className="flex items-center flex-shrink-0">
-            <img
-              className="h-16 w-16 mr-1 cursor-pointer"
-              src={logo}
-              alt="logo"
-            />
-            <span className="text-3xl font-bold tracking-tight hidden sm:block cursor-pointer">
-              CODE
-              <span className="bg-gradient-to-r from-orange-500 to-red-800 text-transparent bg-clip-text">
-                {""} COMPETE
+    <>
+      {/* Navbar - Stays fully visible (NO BLUR) */}
+      <nav className="sticky top-0 z-50 py-3 border-b border-neutral-700/80 shadow-md bg-black/20 backdrop-blur-md">
+        <div className="container px-4 mx-auto relative">
+          <div className="flex justify-between items-center">
+            {/*  Logo */}
+            <div className="flex items-center">
+              <img className="h-16 w-16 mr-2 cursor-pointer" src={logo} alt="logo" />
+              <span className="text-3xl font-bold tracking-tight hidden sm:block cursor-pointer">
+                CODE
+                <span className="bg-gradient-to-r from-orange-500 to-red-800 text-transparent bg-clip-text">
+                  COMPETE
+                </span>
               </span>
-            </span>
-          </div>
-          <ul className="hidden lg:flex ml-14 space-x-10 ">
-            {navItems.map((item, index) => (
-              <li key={index}>
-                <Link
-                  to={item.href}
-                  className="text-neutral-100 hover:text-blue-500 text-lg"
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+            </div>
 
-          <div className="hidden lg:flex justify-center space-x-12 items-center bg-[#6674cc] hover:bg-[#3e477d] rounded-full">
-            <Link to="/login" className="py-3 px-5  text-lg font-semibold">
-              Login
-            </Link>
-          </div>
-
-          {/* Toggle button for small screens only */}
-          <div className="lg:hidden flex flex-col justify-end">
-            <button onClick={toggleNav}>
-              {isOpen ? (
-                <RxCross1 size={28} cursor={"pointer"} />
-              ) : (
-                <BiMenuAltRight size={38} cursor={"pointer"} />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Menu: Only visible on small screens */}
-        {isOpen && (
-          <div className="cursor-pointer fixed right-0 z-60 w-full p-12 flex flex-col justify-center items-center bg-[rgba(32,33,34)] backdrop-blur-md lg:hidden">
-            <ul className="mb-5">
+            {/*  Desktop Menu */}
+            <ul className="hidden lg:flex space-x-10">
               {navItems.map((item, index) => (
-                <li key={index} className="py-4 text-xl ">
+                <li key={index}>
                   <Link
                     to={item.href}
-                    className="text-neutral-100 hover:text-blue-500"
-                  >
+                    className="text-neutral-100 hover:text-blue-500 text-lg">
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
-            <div className="flex space-x-6 justify-center items-center bg-[#6674cc] hover:bg-[#3e477d] rounded-full">
-              <Link to="/login" className="py-3 px-5  text-lg font-semibold ">
-                Login
-              </Link>
+
+            {/*  Login Button */}
+            <div className="hidden lg:flex items-center bg-[#6674cc] hover:bg-[#3e477d] rounded-full px-5 py-3">
+              <Link to="/login" className="text-lg font-semibold">Login</Link>
+            </div>
+
+            {/*  Mobile Menu Toggle */}
+            <div className="lg:hidden flex">
+              <button onClick={toggleNav}>
+                {isOpen ? <RxCross1 size={28} cursor={"pointer"} /> : <BiMenuAltRight size={38} cursor={"pointer"} />}
+              </button>
             </div>
           </div>
-        )}
-      </div>
-    </nav>
+        </div>
+      </nav>
+
+      {/*  Blur effect starts BELOW the navbar  */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-40 backdrop-blur-2xl bg-black/40"
+          style={{ top: "89px " }} // make height to keep navbar clear
+          onClick={toggleNav}>
+        </div>
+      )}
+
+      {/*  Mobile Menu (Glassmorphism Effect) */}
+      {isOpen && (
+        <div className="fixed right-0 top-[89px] z-50 w-full h-full flex flex-col justify-center items-center bg-black/20 backdrop-blur-2xl shadow-lg rounded-lg p-8">
+          <ul className="mb-5 text-center">
+            {navItems.map((item, index) => (
+              <li key={index} className="py-4 text-2xl">
+                <Link
+                  to={item.href}
+                  className="text-neutral-100 hover:text-blue-500"
+                  onClick={toggleNav}>
+                    {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="flex space-x-6 justify-center items-center bg-[#6674cc] hover:bg-[#3e477d] rounded-full px-6 py-3">
+            <Link to="/login" className="text-lg font-semibold" onClick={toggleNav}>
+              Login
+            </Link>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
