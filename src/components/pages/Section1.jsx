@@ -1,54 +1,78 @@
 import React from "react";
-import { Grid, Typography, Box } from "@mui/material";
+import { Container, Paper, Box, Typography, Button, Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Section1() {
   return (
-    <Grid container spacing={2} sx={{ height: "100vh", padding: "2rem", position: "relative" }}>
-      {/* Left Section (0.5fr) */}
-      <Grid 
-        item xs={12} md={4} 
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-      >
-        <Box>
-          <Typography variant="h4" fontWeight="bold">
-            Welcome to CodeCompete
-          </Typography>
-          <Typography variant="body1">
-            Code, Compete, and Improve Your Skills.
-          </Typography>
-        </Box>
-      </Grid>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        background: "linear-gradient(to bottom right, #1f2937, #111827)",
+        color: "white",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        px: 3,
+      }}
+    >
+      {/* Hero Section */}
+      <Container>
+        <Typography
+          variant="h2"
+          fontWeight="bold"
+          sx={{
+            background: "linear-gradient(to right, #f97316, #dc2626)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          CODE COMPETE
+        </Typography>
+        <Typography variant="h6" sx={{ mt: 2, color: "gray.400", maxWidth: "600px", mx: "auto" }}>
+          Weekly DSA contests to test your skills, compete with friends, and climb the leaderboard!
+        </Typography>
+        <Button
+          component={Link}
+          to="/contest"
+          variant="contained"
+          sx={{ mt: 4, bgcolor: "#2563eb", "&:hover": { bgcolor: "#1e40af" } }}
+        >
+          Join the Contest
+        </Button>
+      </Container>
 
-      {/* Vertical Gradient Line */}
-      <Box
-  sx={{
-    position: "absolute",
-    left: "34.3%", 
-    top: "5%",
-    bottom: "5%",
-    width: "1px", 
-    background: "linear-gradient(to top, #ff7e5f, #feb47b)", 
-    zIndex: 10,
-    transform: "translateX(-50%)", 
-    display: { xs: "none", md: "none", lg: "block" }, 
-  }}
-/>
-
-      {/* Right Section (1fr) */}
-      <Grid 
-        item xs={12} md={8} 
-        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-      >
-        <Box>
-          <Typography variant="h5" fontWeight="bold">
-            Compete in exciting challenges, sharpen your coding skills, and join a thriving community!
-          </Typography>
-          <Typography variant="body2">
-            Participate in contests, join coding groups, and discuss coding problems.
-          </Typography>
-        </Box>
+      {/* Features Section */}
+      <Grid container spacing={3} sx={{ mt: 6, px: 4 }}>
+        {[
+          { title: "Upcoming Contests", desc: "Check the schedule and prepare for the next challenge." },
+          { title: "Leaderboard", desc: "Track your progress and see how you rank among others." },
+          { title: "Practice Mode", desc: "Sharpen your skills with topic-wise problems before the contest." },
+        ].map((feature, index) => (
+          <Grid item xs={12} md={4} key={index}>
+            <Paper
+              elevation={4}
+              sx={{
+                p: 3,
+                textAlign: "center",
+                backgroundColor: "#1e293b",
+                color: "white",
+                border: "1px solid #374151",
+                borderRadius: 2,
+              }}
+            >
+              <Typography variant="h6" fontWeight="bold" gutterBottom>
+                {feature.title}
+              </Typography>
+              <Typography variant="body2" color="gray.400">
+                {feature.desc}
+              </Typography>
+            </Paper>
+          </Grid>
+        ))}
       </Grid>
-    </Grid>
+    </Box>
   );
 }
 
