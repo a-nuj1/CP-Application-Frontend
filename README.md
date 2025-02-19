@@ -44,7 +44,7 @@ Follow these steps to set up and run CodeCompete on your local machine:
    ```
 2. **Navigate to the project directory**
    ```sh
-   cd .\client\
+   cd codecompete
    ```
 3. **Install dependencies**
    ```sh
