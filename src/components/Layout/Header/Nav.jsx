@@ -21,10 +21,9 @@ function Nav() {
 
   return (
     <>
-      {/* Navbar - Stays fully visible (NO BLUR) */}
-      <nav className="sticky top-0 z-50 py-3 border-b border-neutral-700/80 shadow-md bg-black/20 backdrop-blur-md">
+      <nav className="sticky top-0 z-50 py-3 border-b border-neutral-700/80 shadow-lg bg-black/20 backdrop-blur-md  ">
         <div className="container px-4 mx-auto relative">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-around items-center">
             {/*  Logo */}
             <div className="flex items-center">
               <img className="h-16 w-16 mr-2 cursor-pointer" src={logo} alt="logo" />

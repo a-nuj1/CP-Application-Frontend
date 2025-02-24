@@ -7,7 +7,7 @@ function Home() {
   return (
     <>
     <Section1/>
-    <Section2/>
+    {/* <Section2/> */}
     </>
   )
 }

@@ -4,16 +4,35 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 
 @import "tailwindcss";
 
 
+/* :root {
+    --gradient-bg: linear-gradient(to bottom right, #000000, #303037, #63636B);
+    --my-gradient: linear-gradient(to right bottom, #60f8ec, #40cad7, #3c9db7, #3d728f, #374b62, #304152, #293643, #232c34, #28363c, #2f4143, #384b48, #45554d);
+    --my-gradient-2: linear-gradient(to bottom, #212121, #313136, #41424c, #515464, #60677d, #60708a, #5f7996, #5b83a1, #45849e, #2e8598, #17868d, #11857e);
+    --final-gradient:  linear-gradient(to bottom right, #030711, #050D1E, #0A1A3C);
+} */
+
+/* body{
+    background: var(--final-gradient) ; 
+    background-attachment: fixed; 
+    color: #fff;
+} */
+
 :root{
     font-family:'Poppins' 'fira sans', sans-serif;
     --primary-color: #202122;
+    --secondary-color: #000;
+    --final-gradient:  linear-gradient(to bottom right, #030711, #050D1E, #0A1A3C);
 }
 
 body{
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
+    /* background: var(--final-gradient) ;  */
+    /* background-attachment: fixed;  */
     color: #fff
 }
