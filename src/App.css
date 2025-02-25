@@ -1,0 +1,46 @@
+/* section1 cards css */
+
+.glow-card {
+    position: relative;
+    border: 2px solid transparent;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.glow-card::before {
+    content: "";
+    position: absolute;
+    top: var(--y, 50%);
+    left: var(--x, 50%);
+    transform: translate(-50%, -50%);
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(var(--glow-color), transparent, transparent);
+    filter: blur(60px);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    z-index: 0; 
+}
+
+.glow-card:hover::before {
+    opacity: 1;
+}
+
+.glow-card::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: 18px;
+    background: rgba(26, 25, 25, 0.75); 
+    backdrop-filter: blur(10px);
+    z-index: -1; 
+}
+
+.glow-card:hover {
+    border-color: var(--glow-color);
+    box-shadow: 0 0 5px var(--glow-color);
+}
+
+/* section1 ends here  */
+
+

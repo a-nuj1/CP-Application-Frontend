@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Box,
@@ -10,7 +10,50 @@ import {
 } from "@mui/material";
 import { IoChevronForwardOutline } from "react-icons/io5";
 
+import "../../App.css";
+
+const features = [
+  {
+    title: "Master DSA Concepts",
+    desc: "Explore a structured collection of problems and learning paths designed to enhance your algorithmic skills effectively.",
+  },
+  {
+    title: "Compete in Weekly Contests",
+    desc: "Join exciting coding battles, challenge peers, and climb the leaderboard every week to prove your problem-solving skills.",
+  },
+  {
+    title: "Top Problems of the Week",
+    desc: "Solve trending challenges picked by experts, track your progress, and refine your coding approach with real-time insights.",
+  },
+  {
+    title: "Practice Previous Contests",
+    desc: "Revisit past competitions, analyze detailed solutions, and sharpen your strategy to perform better in upcoming contests.",
+  },
+  {
+    title: "Connect & Grow",
+    desc: "Engage with a community of coders, participate in discussions, and collaborate on projects to grow as a programmer.",
+  },
+];
+
+const glowColors = [
+  "rgba(214, 88, 208, 0.5)",
+  "rgba(0, 255, 127, 0.5)",
+  "rgba(30, 144, 255, 0.5)",
+  "rgba(255, 99, 71, 0.5)",
+  "rgba(117, 230, 228, 0.5)",
+];
+
 function Section1() {
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+
+    e.currentTarget.style.setProperty("--x", `${x}%`);
+    e.currentTarget.style.setProperty("--y", `${y}%`);
+  };
+
   return (
     <Box
       sx={{
@@ -26,6 +69,7 @@ function Section1() {
       }}
     >
       <Container>
+      
         {/* Heading */}
         <Typography
           variant="h2"
@@ -34,7 +78,7 @@ function Section1() {
             mb: 1,
             fontFamily: "DM Sans, sans-serif",
             fontWeight: "bold",
-            fontSize: { xs: "1.8rem", sm: "2.5rem", md: "2.8rem" },
+            fontSize: { xs: "1.9rem", sm: "2.8rem", md: "2.9rem" },
             lineHeight: { xs: "1.2", sm: "1.3", md: "1.4" },
           }}
         >
@@ -51,7 +95,7 @@ function Section1() {
             color: "gray",
             mb: 10,
             padding: { xs: "0 1rem", sm: "0 2rem", md: "0 8rem" },
-            fontSize: { xs: "0.85rem", sm: "0.85rem", md: "1.05rem" },
+            fontSize: { xs: "0.89rem", sm: "0.89rem", md: "1.08rem" },
             opacity: 0.8,
           }}
         >
@@ -63,32 +107,13 @@ function Section1() {
 
         {/* Cards */}
         <Grid container spacing={4} justifyContent="center">
-          {[
-            {
-              title: "Master DSA Concepts",
-              desc: "Explore a structured collection of problems and learning paths designed to enhance your algorithmic skills effectively.",
-            },
-            {
-              title: "Compete in Weekly Contests",
-              desc: "Join exciting coding battles, challenge peers, and climb the leaderboard every week to prove your problem-solving skills.",
-            },
-            {
-              title: "Top Problems of the Week",
-              desc: "Solve trending challenges picked by experts, track your progress, and refine your coding approach with real-time insights.",
-            },
-            {
-              title: "Practice Previous Contests",
-              desc: "Revisit past competitions, analyze detailed solutions, and sharpen your strategy to perform better in upcoming contests.",
-            },
-            {
-              title: "Connect & Grow",
-              desc: "Engage with a community of coders, participate in discussions, and collaborate on projects to grow as a programmer.",
-            },
-          ].map((feature, index) => (
+          {features.map((feature, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <Card
+                className="glow-card"
+                onMouseMove={handleMouseMove}
                 sx={{
-                  backgroundColor: "#1a1919",
+                  background: "rgba(26, 25, 25, 1)",
                   color: "white",
                   textAlign: "left",
                   height: "100%",
@@ -96,8 +121,10 @@ function Section1() {
                   flexDirection: "column",
                   justifyContent: "space-between",
                   p: 3,
-                  borderRadius: "8px",
-                  // boxShadow: "0px 0px 10px rgba(255, 230, 0, 0.3)",
+                  borderRadius: "18px",
+                  position: "relative",
+                  overflow: "hidden",
+                  "--glow-color": glowColors[index % glowColors.length], 
                 }}
               >
                 <CardContent sx={{ flex: 1, paddingLeft: 2 }}>
@@ -145,6 +172,7 @@ function Section1() {
             </Grid>
           ))}
         </Grid>
+
       </Container>
 
       <Box
