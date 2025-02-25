@@ -15,7 +15,7 @@
     width: 550px;
     height: 550px;
     background: radial-gradient(var(--glow-color), transparent, transparent);
-    filter: blur(60px);
+    filter: blur(90px);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     pointer-events: none;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
   Typography,
@@ -8,7 +8,39 @@ import {
   CardContent,
 } from "@mui/material";
 
+import vanillaTilt from "vanilla-tilt";
+
+const glowColors = [
+  "rgba(214, 88, 208, 0.5)",
+  "rgba(0, 255, 127, 0.5)",
+  "rgba(30, 144, 255, 0.5)",
+  "rgba(255, 99, 71, 0.5)",
+  "rgba(117, 230, 228, 0.5)",
+];
+
+
 function Section2() {
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+
+    e.currentTarget.style.setProperty("--x", `${x}%`);
+    e.currentTarget.style.setProperty("--y", `${y}%`);
+  };
+  useEffect(() => {
+    const tilt = document.querySelector(".tilt");
+    vanillaTilt.init(tilt, {
+      max: 2,
+      speed: 10,
+      // glare: true,
+      // "max-glare": 0.50,
+      // "glare-prerender": false,
+      reverse: true,
+    });
+  });
+
   return (
     <Box
       sx={{
@@ -72,6 +104,8 @@ function Section2() {
         </Typography>
 
         <Card
+          className="tilt glow-card"
+          onMouseMove={handleMouseMove}
           sx={{
             height: "80vh",
             width: "100%",
@@ -83,6 +117,9 @@ function Section2() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            position: "relative",
+            overflow: "hidden",
+            "--glow-color": glowColors[1],
           }}
         >
           <CardContent>
@@ -95,7 +132,6 @@ function Section2() {
             </Typography>
           </CardContent>
         </Card>
-        
       </Container>
     </Box>
   );
