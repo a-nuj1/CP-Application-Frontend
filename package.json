@@ -24,11 +24,8 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.5",
-<<<<<<< HEAD
     "react-simple-typewriter": "^5.0.1",
     "react-syntax-highlighter": "^15.6.1",
-=======
->>>>>>> e9d689b2cd862ada1f4a7d1750f9888a7a3bdff0
     "tailwindcss": "^4.0.6",
     "vanilla-tilt": "^1.8.1"
   },
