@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 
+
 const Section5 = () => {
   const [open, setOpen] = useState(false);
   const theme = useTheme();
@@ -27,10 +28,21 @@ const Section5 = () => {
     setOpen(false);
   };
 
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } =
+      e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+
+    e.currentTarget.style.setProperty("--x", `${x}%`);
+    e.currentTarget.style.setProperty("--y", `${y}%`);
+  };
+
   return (
+
     <Box
       sx={{
-        position: "relative", // Allows absolute positioning for the blur effect
+        position: "relative",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -38,7 +50,7 @@ const Section5 = () => {
         py: isMobile ? 6 : 8,
       }}
     >
-      {/* Blurred Circle Effect */}
+      
       <Box
         sx={{
             width: { xs: "150px", sm: "280px" },
@@ -53,11 +65,12 @@ const Section5 = () => {
           }}
       />
 
-      {/* Main Content Box */}
+      
       <Box
-        className="max-w-7xl mx-auto p-6 rounded-xl flex flex-col items-center text-center"
+        className=" tilt glow-card max-w-7xl mx-auto p-6 rounded-xl flex flex-col items-center text-center"
+        onMouseMove={handleMouseMove}
         sx={{
-          position: "relative", // Ensures it is above the blurred effect
+          position: "relative", 
           width: "100%",
           maxWidth: "1080px",
           backdropFilter: "blur(100px)",
@@ -67,7 +80,9 @@ const Section5 = () => {
           borderRadius: "16px",
           px: isMobile ? 2 : 6,
           py: isMobile ? 3.5 : 5,
-          zIndex: 1, // Ensures it appears above the blurred circle
+          zIndex: 1, 
+          overflow: "hidden",
+          "--glow-color": "rgba(30, 144, 255, 0.5)",
         }}
       >
         <AvatarGroup
@@ -89,8 +104,6 @@ const Section5 = () => {
         </AvatarGroup>
 
         <Typography
-        //   variant={isMobile ? "h6" : "h5"}
-        //   component="h2"
           sx={{
             fontFamily: "DM Sans, sans-serif",
             fontSize: isMobile ? "1.2rem" : "1.3rem",
@@ -103,7 +116,6 @@ const Section5 = () => {
         </Typography>
 
         <Typography
-        //   variant={isMobile ? "body1" : "h6"}
           sx={{
             fontFamily: "DM Sans, sans-serif",
             fontSize: isMobile ? "0.8rem" : "1rem",
@@ -139,7 +151,6 @@ const Section5 = () => {
         </Button>
       </Box>
 
-      {/* Dialog */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -161,7 +172,7 @@ const Section5 = () => {
         </DialogTitle>
         <DialogContent>
           <Typography variant="h6" component="p" align="center" sx={{ mb: 1 }}>
-            Drop your question/query at hello@xyz.org.
+            Drop your question/query at codecompete@gmail.com.
           </Typography>
           <Typography variant="body1" component="p" align="center" sx={{ mb: 4, opacity: 0.8 }}>
             We will get back to you soon.

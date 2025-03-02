@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import { IoChevronForwardOutline } from "react-icons/io5";
 
-import "../../App.css";
 
 const features = [
   {

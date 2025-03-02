@@ -1,9 +1,10 @@
 import React from 'react'
 import "../../App.css"
-import Section1 from './Section1'
-import Section2 from './Section2'
-import Section4 from './Section4'
-import Section5 from './Section5'
+import Section1 from './HomeSections/Section1'
+import Section2 from './HomeSections/Section2'
+import Section4 from './HomeSections/Section4'
+import Section5 from './HomeSections/Section5'
+
 
 
 function Home() {
