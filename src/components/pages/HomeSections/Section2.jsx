@@ -122,6 +122,9 @@ function Section2() {
           Why Choose Us?
         </Typography>
 
+
+        {/* TO DO - Check this section again !  */}
+
         {/* Subheading */}
         <Typography
           variant="h6"
@@ -225,14 +228,14 @@ function Section2() {
                   style={dark}
                   customStyle={{
                     fontFamily: "Courier New, monospace",
-                    fontSize: "0.65rem", // Reduced font size for mobile
+                    fontSize: "0.65rem", 
                     background: "transparent",
                     padding: "10px",
                     border: "none",
                     boxShadow: "none",
-                    whiteSpace: "pre-wrap", // Wraps text properly
-                    overflowX: "hidden", // Removes horizontal scrolling
-                    wordBreak: "break-word", // Breaks long words if needed
+                    whiteSpace: "pre-wrap",
+                    overflowX: "hidden",
+                    wordBreak: "break-word", 
                   }}
                 >
                   {typedText || "// Typing..."}
@@ -241,6 +244,8 @@ function Section2() {
             </CardContent>
           </Box>
         </Card>
+
+
       </Container>
     </Box>
   );
