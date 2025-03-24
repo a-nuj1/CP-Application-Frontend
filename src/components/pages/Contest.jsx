@@ -206,7 +206,7 @@ const Contest = () => {
           fontFamily: "DM Sans, sans-serif",
           alignSelf: "flex-start",
           ml: { xs: 10, md: 30 },
-          fontSize: { xs: "1rem", sm: "1.1rem", md: "2rem" },
+          fontSize: { xs: "1rem", sm: "1.1rem", md: "1.5rem" },
         }}
       >
         Rated Weekly (Contest)
@@ -459,6 +459,135 @@ const Contest = () => {
 
         </Grid>
       </Box>
+
+      {/* Upcoming Conding Contest Information */}
+      
+      <Typography
+        sx={{
+          color: "#b7c4c3",
+          mt: 4,
+          mb: 3,
+          fontFamily: "DM Sans, sans-serif",
+          alignSelf: "flex-start",
+          ml: { xs: 8, md: 12 },
+          fontSize: { xs: "1rem", sm: "1rem", md: "1.5rem" },
+        }}
+      >
+        Upcoming Contests
+      </Typography>
+      
+      {/* need three four boxes */}
+      <Box
+  sx={{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 3,
+    width: "100%",
+    flexWrap: "wrap",
+    px: 3,
+  }}
+>
+  {[2, 3, 4].map((contestNumber) => (
+    <Box
+      key={contestNumber}
+      sx={{
+        width: { xs: "100%", sm: "45%", md: "30%" },
+        borderRadius: "12px",
+        overflow: "hidden",
+        background: "rgba(255, 255, 255, 0.11)",
+        backdropFilter: "blur(10px)",
+        border: "1px solid rgba(255, 255, 255, 0.18)",
+        p: 3,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+      }}
+    >
+      {/* Contest Title */}
+      <Typography
+        variant="subtitle2"
+        sx={{
+          color: "#4972c4",
+          fontFamily: "DM Sans, sans-serif",
+          mb: 1,
+        }}
+      >
+        CodeCompete Contest
+      </Typography>
+
+      {/* Contest Name */}
+      <Typography
+        variant="h5"
+        sx={{
+          fontWeight: "bold",
+          color: "white",
+          fontFamily: "DM Sans, sans-serif",
+          mb: 2,
+        }}
+      >
+        Weekly Contest {contestNumber}
+      </Typography>
+
+      {/* Calendar Icon & Timing */}
+      <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+        <CalendarIcon
+          size={18}
+          style={{ marginRight: "8px", color: "#347aeb" }}
+        />
+        <Typography
+          sx={{
+            fontFamily: "DM Sans, sans-serif",
+            color: "white",
+          }}
+        >
+          Every Sunday, 8:00 AM - 10:00 PM IST
+        </Typography>
+      </Box>
+
+      {/* Problem Description */}
+      <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+        <Box component="span" sx={{ mr: 1, color: "#347aeb" }}>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.1 21 19V5C21 3.9 20.11 3 19 3ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+              fill="currentColor"
+            />
+          </svg>
+        </Box>
+        <Typography sx={{ fontFamily: "DM Sans, sans-serif", color: "white" }}>
+          Problems
+        </Typography>
+      </Box>
+
+      {/* View Details Button */}
+      <Button
+        variant="outlined"
+        sx={{
+          borderRadius: "8px",
+          textTransform: "none",
+          fontFamily: "DM Sans, sans-serif",
+          borderColor: "#FFD700",
+          color: "#FFD700",
+          "&:hover": {
+            backgroundColor: "#FFD700",
+            color: "#1a1919",
+          },
+          px: 3,
+        }}
+      >
+        View details
+      </Button>
+    </Box>
+  ))}
+</Box>
+        
     </Box>
   );
 };
