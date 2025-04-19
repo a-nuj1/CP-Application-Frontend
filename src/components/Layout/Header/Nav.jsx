@@ -45,13 +45,13 @@ const navItems = [
       },
       {
         icon: <FaProjectDiagram className="text-white-400 text-xl" />,
-        title: "Practice DSA Concepts & Patterns",
+        title: "Practice DSA Concepts",
         subtitle: "Master data structures & algorithms with real-world patterns",
         href: "/practice/web-projects",
       },
       {
         icon: <FaCalendarAlt className="text-white-400 text-xl" />,
-        title: "Previous Weekly Contests",
+        title: "Practice Past Contests",
         subtitle: "Revisit and solve problems from past contests",
         href: "/practice/daily",
       },
