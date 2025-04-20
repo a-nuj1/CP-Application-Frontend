@@ -20,13 +20,13 @@ const navItems = [
     href: "/groups",
     dropdown: [
       {
-        icon: <FaLaptopCode className="text-white-400 text-xl" />,
+        icon: <FaLaptopCode className="text-yellow-400 text-xl" />,
         title: "Make Your Own Group",
         subtitle: "View and manage your groups",
         href: "/groups/my"
       },
       {
-        icon: <FaProjectDiagram className="text-white-400 text-xl" />,
+        icon: <FaProjectDiagram className="text-yellow-400 text-xl" />,
         title: "Discover Groups",
         subtitle: "Find new groups to join",
         href: "/groups/discover"
@@ -38,25 +38,25 @@ const navItems = [
     href: "/practice",
     dropdown: [
       {
-        icon: <FaLaptopCode className="text-white-400 text-xl" />,
+        icon: <FaLaptopCode className="text-yellow-400 text-xl" />,
         title: "Interview Problems",
         subtitle: "Practice the most frequently asked coding questions",
         href: "/practice/interview",
       },
       {
-        icon: <FaProjectDiagram className="text-white-400 text-xl" />,
+        icon: <FaProjectDiagram className="text-yellow-400 text-xl" />,
         title: "Practice DSA Concepts",
         subtitle: "Master data structures & algorithms with real-world patterns",
         href: "/practice/web-projects",
       },
       {
-        icon: <FaCalendarAlt className="text-white-400 text-xl" />,
+        icon: <FaCalendarAlt className="text-yellow-400 text-xl" />,
         title: "Practice Past Contests",
         subtitle: "Revisit and solve problems from past contests",
         href: "/practice/daily",
       },
       {
-        icon: <FaListAlt className="text-white-400 text-xl" />,
+        icon: <FaListAlt className="text-yellow-400 text-xl" />,
         title: "Problem of the Day",
         subtitle: "Solve today's challenge and keep your streak alive",
         href: "/practice/popular",

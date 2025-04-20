@@ -5,7 +5,9 @@ import Home from "./components/pages/Home";
 import Footer from "./components/Layout/Footer/Footer";
 import Contest from "./components/pages/Contest";
 import Auth from "./components/pages/Auth";
-import Practice from "./components/pages/Practice";
+// import MakeYourOwnGroup from "./components/pages/GroupSection/MakeYourOwnGroup";
+import CreateGroupPage from "./components/pages/GroupSection/CreateGroupPage";
+import DiscoverGroupsPage from "./components/pages/GroupSection/DiscoverGroupsPage";
 
 
 
@@ -16,7 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/contest" element = {<Contest/>}/>
-        <Route path="/practice" element={<Practice/>} />
+        <Route path="/groups/my" element={<CreateGroupPage />} />
+        <Route path="/groups/discover" element={<DiscoverGroupsPage />} />
         <Route path="/login" element={<Auth />} />
       </Routes>
       <Footer/>
