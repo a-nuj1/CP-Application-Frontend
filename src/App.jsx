@@ -5,9 +5,9 @@ import Home from "./components/pages/Home";
 import Footer from "./components/Layout/Footer/Footer";
 import Contest from "./components/pages/Contest";
 import Auth from "./components/pages/Auth";
-// import MakeYourOwnGroup from "./components/pages/GroupSection/MakeYourOwnGroup";
 import CreateGroupPage from "./components/pages/GroupSection/CreateGroupPage";
 import DiscoverGroupsPage from "./components/pages/GroupSection/DiscoverGroupsPage";
+import InterviewProblemsPage from "./components/pages/PracticeSections/InterviewProblemsPage";
 
 
 
@@ -20,6 +20,8 @@ function App() {
         <Route path="/contest" element = {<Contest/>}/>
         <Route path="/groups/my" element={<CreateGroupPage />} />
         <Route path="/groups/discover" element={<DiscoverGroupsPage />} />
+
+        <Route path="/practice/interview" element={<InterviewProblemsPage />} />
         <Route path="/login" element={<Auth />} />
       </Routes>
       <Footer/>
