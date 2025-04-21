@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function InterviewProblemsPage() {
+function InterviewProblemsPage() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [difficultyFilter, setDifficultyFilter] = useState("All");
@@ -613,3 +613,5 @@ export default function InterviewProblemsPage() {
     </div>
   );
 }
+
+export default InterviewProblemsPage;

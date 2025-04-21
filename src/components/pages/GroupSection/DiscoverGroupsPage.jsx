@@ -71,9 +71,13 @@ export default function DiscoverGroupsPage() {
   const filteredGroups = mockGroups.filter(group => {
     const matchesSearch = group.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          group.description.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesCategory = selectedCategory === 'All' || group.category === selectedCategory;
+
     const matchesRating = group.rating >= minRating;
+
     const matchesMembers = group.members >= memberRange[0] && group.members <= memberRange[1];
+    
     return matchesSearch && matchesCategory && matchesRating && matchesMembers;
   });
 

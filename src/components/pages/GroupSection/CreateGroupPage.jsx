@@ -8,7 +8,7 @@ import {
 import { useState } from "react";
 import { Box } from "@mui/material";
 
-export default function CreateGroupPage() {
+function CreateGroupPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [groups, setGroups] = useState([]);
   const [activeGroup, setActiveGroup] = useState(null);
@@ -18,6 +18,7 @@ export default function CreateGroupPage() {
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
   const [tagline, setTagline] = useState("");
+  
 
   const handleCreateGroup = () => {
     const newGroup = {
@@ -379,3 +380,6 @@ export default function CreateGroupPage() {
     </div>
   );
 }
+
+
+export default CreateGroupPage;

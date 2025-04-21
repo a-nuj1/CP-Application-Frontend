@@ -8,7 +8,9 @@ import Auth from "./components/pages/Auth";
 import CreateGroupPage from "./components/pages/GroupSection/CreateGroupPage";
 import DiscoverGroupsPage from "./components/pages/GroupSection/DiscoverGroupsPage";
 import InterviewProblemsPage from "./components/pages/PracticeSections/InterviewProblemsPage";
-
+import DSAConcepts from "./components/pages/PracticeSections/DsaConcepts";
+import PastContest from "./components/pages/PracticeSections/PastContest";
+import POTD from "./components/pages/PracticeSections/POTD";
 
 
 function App() {
@@ -22,6 +24,12 @@ function App() {
         <Route path="/groups/discover" element={<DiscoverGroupsPage />} />
 
         <Route path="/practice/interview" element={<InterviewProblemsPage />} />
+        <Route path="/practice/dsa" element={<DSAConcepts />} />
+        <Route path="/practice/past" element={<PastContest />} />
+        <Route path="/practice/potd" element={<POTD />} />
+        
+
+        
         <Route path="/login" element={<Auth />} />
       </Routes>
       <Footer/>
