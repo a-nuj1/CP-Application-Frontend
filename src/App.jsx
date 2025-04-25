@@ -11,7 +11,7 @@ import InterviewProblemsPage from "./components/pages/PracticeSections/Interview
 import DSAConcepts from "./components/pages/PracticeSections/DsaConcepts";
 import PastContest from "./components/pages/PracticeSections/PastContest";
 import POTD from "./components/pages/PracticeSections/POTD";
-
+import Discussion from "./components/pages/Discussion";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
         <Route path="/practice/past" element={<PastContest />} />
         <Route path="/practice/potd" element={<POTD />} />
         
-
+        <Route path="/blog" element={<Discussion />} />
         
         <Route path="/login" element={<Auth />} />
       </Routes>
