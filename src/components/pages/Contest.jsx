@@ -1,19 +1,55 @@
 import { useState, useEffect } from "react";
 import contest from "../../assets/contestre.png";
-import { Box, Typography, Button, Grid } from "@mui/material";
-import { CalendarIcon, StarIcon } from "lucide-react";
+import {
+  Box,
+  Typography,
+  Button,
+  Grid,
+  useMediaQuery,
+  Grow,
+} from "@mui/material";
+import {
+  CalendarIcon,
+  StarIcon,
+  ChevronRight,
+  ChevronLeft,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { keyframes } from "@emotion/react";
+
+// Animation keyframes
+const pulse = keyframes`
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+`;
+
+const float = keyframes`
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+`;
 
 export const Logo = () => {
   return (
-    <img
-      src={contest || "/placeholder.svg"}
-      alt="Contest"
-      className="w-50 h-50"
-    />
+    <motion.div
+      initial={{ scale: 0.9, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <img
+        src={contest || "/placeholder.svg"}
+        alt="Contest"
+        className="w-50 h-50"
+        style={{ filter: "drop-shadow(0 0 10px rgba(255, 215, 0, 0.7))" }}
+      />
+    </motion.div>
   );
 };
 
 const Contest = () => {
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -21,39 +57,23 @@ const Contest = () => {
     seconds: 0,
   });
 
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } =
-      e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - left) / width) * 100;
-    const y = ((e.clientY - top) / height) * 100;
-
-    e.currentTarget.style.setProperty("--x", `${x}%`);
-    e.currentTarget.style.setProperty("--y", `${y}%`);
-  };
-
+  // Function to calculate time left until the next Sunday at 8:00 AM
   useEffect(() => {
     const calculateTimeToNextSunday = () => {
       const now = new Date();
       const nextSunday = new Date(now);
-      const currentDay = now.getDay(); // 0 is Sunday, 1 is Monday, etc.
+      const currentDay = now.getDay();
 
-      // Calculate days until next Sunday
-      const daysUntilSunday = currentDay === 0 ? 7 : 7 - currentDay;
-      nextSunday.setDate(now.getDate() + daysUntilSunday);
-      nextSunday.setHours(8, 0, 0, 0); // 8 AM
-
-      // If it's already Sunday and past 8 AM, set to next Sunday
-
-      //NEED FIX HERE
-      // TO DO
-
+      let daysUntilSunday = currentDay === 0 ? 7 : 7 - currentDay;
       if (currentDay === 0 && now.getHours() >= 8) {
-        nextSunday.setDate(nextSunday.getDate() + 7);
+        daysUntilSunday = 7;
       }
+
+      nextSunday.setDate(now.getDate() + daysUntilSunday);
+      nextSunday.setHours(8, 0, 0, 0);
 
       const timeDiff = nextSunday.getTime() - now.getTime();
 
-      // Convert to days, hours, minutes, seconds
       const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
         (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
@@ -64,10 +84,7 @@ const Contest = () => {
       return { days, hours, minutes, seconds };
     };
 
-    // Set initial time
     setTimeLeft(calculateTimeToNextSunday());
-
-    // Update every second
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeToNextSunday());
     }, 1000);
@@ -98,10 +115,11 @@ const Contest = () => {
     },
   ];
 
+  // Auto-slide functionality
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 2000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [slides.length]);
@@ -110,8 +128,15 @@ const Contest = () => {
     return unit.toString().padStart(2, "0");
   };
 
-  return (
+  const handlePrevSlide = () => {
+    setActiveSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
 
+  const handleNextSlide = () => {
+    setActiveSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
     <Box
       sx={{
         position: "relative",
@@ -196,398 +221,775 @@ const Contest = () => {
         </Typography>
       </Box>
 
-      {/* Weekly Rated Contest Heading */}
-
-      <Typography
-        sx={{
-          color: "#b7c4c3",
-          mt: 4,
-          mb: 3,
-          fontFamily: "DM Sans, sans-serif",
-          alignSelf: "flex-start",
-          ml: { xs: 10, md: 30 },
-          fontSize: { xs: "1rem", sm: "1.1rem", md: "1.5rem" },
-        }}
+      {/* Codecompete Contest Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.5 }}
+        style={{ width: "100%", maxWidth: "1200px" }}
       >
-        Rated Weekly (Contest)
-      </Typography>
+        <Typography
+          sx={{
+            color: "#FFD700",
+            mt: 4,
+            mb: 3,
+            fontFamily: "DM Sans, sans-serif",
+            fontSize: { xs: "1.3rem", md: "1.8rem" },
+            fontWeight: "bold",
+            textAlign: "center",
+            position: "relative",
+            display: "inline-block",
+            width: "100%",
+            "&:after": {
+              content: '""',
+              position: "absolute",
+              bottom: "-8px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "100px",
+              height: "3px",
+              background:
+                "linear-gradient(90deg, transparent, #FFD700, transparent)",
+              borderRadius: "3px",
+            },
+          }}
+        >
+          Weekly Rated Contest
+        </Typography>
 
-      {/* Contest Information Box */}
-      <Box
-        onMouseMove={handleMouseMove}
-        className="tilt glow-card"
-        sx={{
-          width: "70%",
-          height:"auto",
-          borderRadius: "12px",
-          overflow: "hidden",
-          mb: 4,
-          background: "rgba(255, 255, 255, 0.11)",
-          backdropFilter: "blur(10px)",
-          border: "1px solid rgba(255, 255, 255, 0.18)",
-          // boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
-          zIndex: 1,
-          "--glow-color": "rgba(0, 255, 127, 0.5)",
-        }}
-      >
-        <Grid container>
-          {/* Left Side - Contest Details */}
-
-          <Grid item xs={12} md={6} sx={{ p: { xs: 2, md: 4 } }}>
-            <Typography
-              variant="subtitle2"
-              sx={{
-                color: "#FFD700",
-                fontFamily: "DM Sans, sans-serif",
-                mb: 1,
-              }}
-            >
-              CodeCompete contest
-            </Typography>
-
-            {/* Contest Info */}
-
-            <Typography
-              variant="h4"
-              sx={{
-                fontWeight: "bold",
-                color: "white",
-                fontFamily: "DM Sans, sans-serif",
-                fontSize: { xs: "1.5rem", sm: "1.8rem", md: "2rem" },
-                mb: 2,
-              }}
-            >
-              Weekly Contest 1
-            </Typography>
-
-            {/* Timer Countdown Box */}
-
-            <Box
-              sx={{
-                backgroundColor: "rgba(144, 202, 249, 0.11)",
-                borderRadius: "8px",
-                p: 1,
-                display: "inline-block",
-                mb: 2,
-              }}
-            >
+        {/* Main Contest Card */}
+        <Box
+          component={motion.div}
+          whileHover={{ scale: isMobile ? 1 : 1.01 }}
+          sx={{
+            width: "100%",
+            margin: "0 auto",
+            borderRadius: "16px",
+            overflow: "hidden",
+            mb: 4,
+            background: "rgba(255, 255, 255, 0.08)",
+            // backdropFilter: "blur(12px)",
+            // border: "1px solid rgba(255, 255, 255, 0.15)",
+            // boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
+            // zIndex: 1,
+            // "--glow-color": "rgba(0, 255, 127, 0.5)",
+            position: "relative",
+            "&:before": {
+              content: '""',
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "2px",
+              background:
+                "linear-gradient(90deg, transparent, #FFD700, transparent)",
+            },
+          }}
+        >
+          <Grid container>
+            {/* Left Side - Contest Details */}
+            <Grid item xs={12} md={6} sx={{ p: { xs: 2, md: 4 } }}>
               <Typography
+                variant="subtitle2"
                 sx={{
+                  color: "#FFD700",
                   fontFamily: "DM Sans, sans-serif",
-                  fontWeight: "medium",
+                  mb: 1,
+                  letterSpacing: "1px",
+                  fontSize: { xs: "0.8rem", md: "0.9rem" },
                 }}
               >
-                Starts in {formatTimeUnit(timeLeft.days)}d :{" "}
-                {formatTimeUnit(timeLeft.hours)}h :{" "}
-                {formatTimeUnit(timeLeft.minutes)}m :{" "}
-                {formatTimeUnit(timeLeft.seconds)}s
+                CODECOMPETE CONTEST
               </Typography>
-            </Box>
 
-            {/* calendar Icon and texts */}
-
-            <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-              <CalendarIcon
-                size={18}
-                style={{ marginRight: "8px", color: "#347aeb" }}
-              />
               <Typography
+                variant="h4"
                 sx={{
-                  fontFamily: "DM Sans, sans-serif",
+                  fontWeight: "bold",
                   color: "white",
-                }}
-              >
-                Every Sunday, 8:00 AM - 10:00 PM IST
-              </Typography>
-            </Box>
-
-            {/* problem Heading */}
-
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                mb: 3,
-                cursor: "pointer",
-              }}
-            >
-              <Box component="span" sx={{ mr: 1, color: "#347aeb" }}>
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.1 21 19V5C21 3.9 20.11 3 19 3ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              </Box>
-              <Typography
-                sx={{
                   fontFamily: "DM Sans, sans-serif",
-                  color: "white",
+                  fontSize: { xs: "1.5rem", sm: "1.2rem", md: "1.6rem" },
+                  mb: 2,
+                  lineHeight: 1.2,
                 }}
               >
-                Problems
+                Codecompete Contest 1
               </Typography>
-            </Box>
 
-            {/* View Details Button */}
-            <Button
-              variant="outlined"
-              sx={{
-                borderRadius: "8px",
-                textTransform: "none",
-                fontFamily: "DM Sans, sans-serif",
-                borderColor: "#FFD700",
-                color: "#FFD700",
-                "&:hover": {
-                  backgroundColor: "#FFD700",
-                  color: "#1a1919",
-                },
-                px: 3,
-              }}
-            >
-              View details
-            </Button>
-          </Grid>
-
-          {/* Right Side - Slider */}
-
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              backgroundColor: "rgba(250, 250, 250, 0.11)",
-              p: { xs: 2, md: 4 },
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <Box sx={{ position: "relative", minHeight: "180px" }}>
-              {slides.map((slide, index) => (
+              {/* Timer Countdown - Responsive Layout */}
+              <Box
+                component={motion.div}
+                animate={{
+                  scale: [1, 1.02, 1],
+                  boxShadow: [
+                    "0 0 0 rgba(255,215,0,0)",
+                    "0 0 10px rgba(255,215,0,0.3)",
+                    "0 0 0 rgba(255,215,0,0)",
+                  ],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                }}
+                sx={{
+                  backgroundColor: "rgba(144, 202, 249, 0.11)",
+                  borderRadius: "8px",
+                  p: 2,
+                  mb: 3,
+                  border: "1px solid rgba(255,215,0,0.3)",
+                  width: "100%",
+                  overflowX: "auto",
+                }}
+              >
                 <Box
-                  key={index}
                   sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: isMobile ? "wrap" : "nowrap",
+                    gap: isMobile ? 1 : 0,
+                    minWidth: isMobile ? "300px" : "auto",
+                  }}
+                >
+                  {Object.entries(timeLeft).map(([unit, value]) => (
+                    <Box
+                      key={unit}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        mr: isMobile ? 0 : 1,
+                        mb: isMobile ? 1 : 0,
+                        flex: isMobile ? "1 0 40%" : "0 0 auto",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          backgroundColor: "rgba(255,255,255,0.1)",
+                          borderRadius: "4px",
+                          p: "4px 8px",
+                          minWidth: "36px",
+                          textAlign: "center",
+                          mr: 0.5,
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontFamily: "'Roboto Mono', monospace",
+                            fontWeight: "bold",
+                            color: "#FFD700",
+                            fontSize: "1.1rem",
+                          }}
+                        >
+                          {formatTimeUnit(value)}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        sx={{
+                          fontFamily: "DM Sans, sans-serif",
+                          color: "rgba(255,255,255,0.7)",
+                          fontSize: "0.8rem",
+                          textTransform: "uppercase",
+                          mr: isMobile ? 0 : 1.5,
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {unit}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+                <Typography
+                  sx={{
+                    fontFamily: "DM Sans, sans-serif",
+                    color: "rgba(255,255,255,0.7)",
+                    mt: 1,
+                    fontSize: "0.9rem",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Starts in {formatTimeUnit(timeLeft.days)} days{" "}
+                  {formatTimeUnit(timeLeft.hours)} hours
+                </Typography>
+              </Box>
+
+              {/* Contest Details */}
+              <Box sx={{ mb: 3 }}>
+                <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
+                  <CalendarIcon
+                    size={18}
+                    style={{
+                      marginRight: "8px",
+                      color: "#347aeb",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <Typography
+                    sx={{
+                      fontFamily: "DM Sans, sans-serif",
+                      color: "white",
+                      fontSize: { xs: "0.9rem", md: "1rem" },
+                    }}
+                  >
+                    Every Sunday, 8:00 AM - 10:00 PM IST
+                  </Typography>
+                </Box>
+
+                <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
+                  <Box
+                    component="span"
+                    sx={{ mr: 1, color: "#347aeb", flexShrink: 0 }}
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.1 21 19V5C21 3.9 20.11 3 19 3ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "DM Sans, sans-serif",
+                      color: "white",
+                      fontSize: { xs: "0.9rem", md: "1rem" },
+                    }}
+                  >
+                    4 Problems • 2 Hours Duration
+                  </Typography>
+                </Box>
+
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <Box
+                    component="span"
+                    sx={{ mr: 1, color: "#347aeb", flexShrink: 0 }}
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "DM Sans, sans-serif",
+                      color: "white",
+                      fontSize: { xs: "0.9rem", md: "1rem" },
+                    }}
+                  >
+                    500+ Registered Participants
+                  </Typography>
+                </Box>
+              </Box>
+
+              {/* Action Buttons */}
+              <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    borderRadius: "8px",
+                    textTransform: "none",
+                    fontFamily: "DM Sans, sans-serif",
+                    backgroundColor: "#FFD700",
+                    color: "#1a1919",
+                    fontWeight: "bold",
+                    px: 3,
+                    fontSize: { xs: "0.8rem", md: "0.9rem" },
+                    animation: `${pulse} 1.5s infinite`,
+                    "&:hover": {
+                      backgroundColor: "#ffcc00",
+                      boxShadow: "0 0 15px rgba(255, 215, 0, 0.5)",
+                    },
+                  }}
+                >
+                  Register Now
+                </Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderRadius: "8px",
+                    textTransform: "none",
+                    fontFamily: "DM Sans, sans-serif",
+                    borderColor: "#FFD700",
+                    color: "#FFD700",
+                    fontWeight: "bold",
+                    px: 3,
+                    fontSize: { xs: "0.8rem", md: "0.9rem" },
+                    "&:hover": {
+                      backgroundColor: "rgba(255, 215, 0, 0.1)",
+                      borderColor: "#ffcc00",
+                    },
+                  }}
+                >
+                  View Details
+                </Button>
+              </Box>
+            </Grid>
+
+            {/* Right Side - Slider */}
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{
+                backgroundColor: "rgba(250, 250, 250, 0.05)",
+                p: { xs: 2, md: 4 },
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                borderLeft: { md: "1px solid rgba(255,255,255,0.1)" },
+                borderTop: {
+                  xs: "1px solid rgba(255,255,255,0.1)",
+                  md: "none",
+                },
+              }}
+            >
+              <Box sx={{ position: "relative", minHeight: "220px" }}>
+                <AnimatePresence mode="wait">
+                  {slides.map(
+                    (slide, index) =>
+                      activeSlide === index && (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.5 }}
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              mb: 2,
+                              ml: 1,
+                            }}
+                          >
+                            {slide.icon}
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                ml: 1,
+                                fontFamily: "DM Sans, sans-serif",
+                                fontWeight: "bold",
+                                color: "white",
+                                fontSize: { xs: "1.1rem", md: "1.2rem" },
+                              }}
+                            >
+                              {slide.title}
+                            </Typography>
+                          </Box>
+
+                          <Box
+                            sx={{
+                              backgroundColor: "rgba(255, 255, 255, 0.08)",
+                              borderRadius: "12px",
+                              p: 3,
+                              backdropFilter: "blur(5px)",
+                              border: "1px solid rgba(255, 255, 255, 0.1)",
+                              boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                fontFamily: "DM Sans, sans-serif",
+                                color: "rgba(255,255,255,0.8)",
+                                lineHeight: 1.6,
+                                fontSize: { xs: "0.9rem", md: "1rem" },
+                              }}
+                            >
+                              {slide.content}
+                            </Typography>
+                          </Box>
+                        </motion.div>
+                      )
+                  )}
+                </AnimatePresence>
+              </Box>
+
+              {/* Slider Controls */}
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mt: 3,
+                }}
+              >
+                <Button
+                  onClick={handlePrevSlide}
+                  sx={{
+                    minWidth: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                    },
+                  }}
+                >
+                  <ChevronLeft size={20} />
+                </Button>
+
+                <Box sx={{ display: "flex", gap: 1 }}>
+                  {slides.map((_, index) => (
+                    <Box
+                      key={index}
+                      component={motion.div}
+                      animate={{
+                        width: activeSlide === index ? "24px" : "8px",
+                        backgroundColor:
+                          activeSlide === index
+                            ? "#FFD700"
+                            : "rgba(255,255,255,0.3)",
+                      }}
+                      sx={{
+                        height: "4px",
+                        borderRadius: "2px",
+                        cursor: "pointer",
+                        transition: "all 0.3s ease",
+                      }}
+                      onClick={() => setActiveSlide(index)}
+                    />
+                  ))}
+                </Box>
+
+                <Button
+                  onClick={handleNextSlide}
+                  sx={{
+                    minWidth: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    backgroundColor: "rgba(255,255,255,0.1)",
+                    color: "white",
+                    "&:hover": {
+                      backgroundColor: "rgba(255,255,255,0.2)",
+                    },
+                  }}
+                >
+                  <ChevronRight size={20} />
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </motion.div>
+
+      {/* Upcoming Contests Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+        style={{ width: "100%", marginTop: "2rem" }}
+      >
+        <Typography
+          sx={{
+            color: "#FFD700",
+            mt: 4,
+            mb: 4,
+            fontFamily: "DM Sans, sans-serif",
+            fontSize: { xs: "1.2rem", sm: "1.3rem", md: "1.8rem" },
+            fontWeight: "bold",
+            textAlign: "center",
+            position: "relative",
+            display: "inline-block",
+            width: "100%",
+            "&:after": {
+              content: '""',
+              position: "absolute",
+              bottom: "-8px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "100px",
+              height: "3px",
+              background:
+                "linear-gradient(90deg, transparent, #FFD700, transparent)",
+              borderRadius: "3px",
+            },
+          }}
+        >
+          Upcoming Contests
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: "center",
+            gap: 3,
+            width: "100%",
+            flexWrap: "wrap",
+            px: { xs: 2, md: 4 },
+            mb: 6,
+          }}
+        >
+          {[2, 3, 4].map((contestNumber, index) => (
+            <Grow in timeout={(index + 1) * 300} key={contestNumber}>
+              <Box
+                component={motion.div}
+                whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0,0,0,0.2)" }}
+                sx={{
+                  // width: { xs: "100%", sm: "80%", md: "30%" },
+                  minWidth: { md: "300px" },
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                  background: "rgba(255, 255, 255, 0.05)",
+                  backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  p: 3,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-start",
+                  transition: "all 0.3s ease",
+                  // boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                  position: "relative",
+                  "&:before": {
+                    content: '""',
                     position: "absolute",
                     top: 0,
                     left: 0,
-                    width: "100%",
-                    opacity: activeSlide === index ? 1 : 0,
-                    transition: "opacity 0.5s ease-in-out",
-                    pointerEvents: activeSlide === index ? "auto" : "none",
+                    right: 0,
+                    height: "4px",
+                    background: `linear-gradient(90deg, #${Math.floor(
+                      Math.random() * 16777215
+                    ).toString(16)}, #${Math.floor(
+                      Math.random() * 16777215
+                    ).toString(16)})`,
+                  },
+                }}
+              >
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: "#4972c4",
+                    fontFamily: "DM Sans, sans-serif",
+                    mb: 1,
+                    letterSpacing: "1px",
                   }}
                 >
-                  <Box
-                    sx={{ display: "flex", alignItems: "center", mb: 2, ml: 1 }}
-                  >
-                    {slide.icon}
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        ml: 1,
-                        fontFamily: "DM Sans, sans-serif",
-                        fontWeight: "medium",
-                      }}
-                    >
-                      {slide.title}
-                    </Typography>
-                  </Box>
+                  CODECOMPETE CONTEST
+                </Typography>
 
-                  <Box
+                <Typography
+                  variant="h5"
+                  sx={{
+                    fontWeight: "bold",
+                    color: "white",
+                    fontFamily: "DM Sans, sans-serif",
+                    mb: 2,
+                    fontSize: "1.2rem",
+                  }}
+                >
+                  Codecompete Contest {contestNumber}
+                </Typography>
+
+                <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
+                  <CalendarIcon
+                    size={18}
+                    style={{ marginRight: "8px", color: "#347aeb" }}
+                  />
+                  <Typography
                     sx={{
-                      backgroundColor: "rgba(255, 255, 255, 0.11)",
-                      borderRadius: "8px",
-                      p: 3,
-                      backdropFilter: "blur(5px)",
-                      border: "1px solid rgba(255, 255, 255, 0.18)",
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: "lighter",
                     }}
                   >
-                    <Typography
-                      sx={{
-                        fontFamily: "DM Sans, sans-serif",
-                        color: "white",
-                      }}
-                    >
-                      {slide.content}
-                    </Typography>
-                  </Box>
+                    Every Sunday, 8:00 AM - 10:00 PM IST
+                  </Typography>
                 </Box>
-              ))}
-            </Box>
 
-            {/* Slider Controls */}
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-              {slides.map((_, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    width: "24px",
-                    height: "4px",
-                    backgroundColor: activeSlide === index ? "#FFD700" : "#ddd", // Ensures only one is highlighted
-                    mx: 0.5,
-                    borderRadius: "2px",
-                    cursor: "pointer",
-                    transition: "background-color 0.3s ease",
-                  }}
-                  onClick={() => setActiveSlide(index)}
-                />
-              ))}
-            </Box>
+                <Box sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
+                  <Box component="span" sx={{ mr: 1, color: "#347aeb" }}>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.1 21 19V5C21 3.9 20.11 3 19 3ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: "lighter",
+                    }}
+                  >
+                    4 Problems • 2 Hours Duration
+                  </Typography>
+                </Box>
 
-            <Box
+                <Box sx={{ mt: "auto", width: "100%" }}>
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    sx={{
+                      borderRadius: "8px",
+                      textTransform: "none",
+                      fontFamily: "DM Sans, sans-serif",
+                      borderColor: "#FFD700",
+                      color: "#FFD700",
+                      fontWeight: "bold",
+                      "&:hover": {
+                        backgroundColor: "rgba(255, 215, 0, 0.1)",
+                        borderColor: "#ffcc00",
+                      },
+                    }}
+                  >
+                    View Details
+                  </Button>
+                </Box>
+              </Box>
+            </Grow>
+          ))}
+        </Box>
+      </motion.div>
+
+      {/* Contest Features */}
+      <Box
+        sx={{
+          width: "100%",
+          background:
+            "linear-gradient(to right, rgba(15,15,26,0.8), rgba(22,33,62,0.8))",
+          py: 6,
+          px: { xs: 2, md: 4 },
+          mt: 4,
+          borderTop: "1px solid rgba(255,255,255,0.1)",
+          borderBottom: "1px solid rgba(255,255,255,0.1)",
+        }}
+      >
+        <Typography
+          sx={{
+            color: "#FFD700",
+            mb: 4,
+            fontFamily: "DM Sans, sans-serif",
+            fontSize: { xs: "1.3rem", md: "1.8rem" },
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          Why Join Our Contests?
+        </Typography>
+
+        <Grid
+          container
+          spacing={3}
+          sx={{
+            // maxWidth: "1200px",
+            justifyContent: "center",
+          }}
+        >
+          {[
+            {
+              icon: "🏆",
+              title: "Win Exciting Prizes",
+              description:
+                "Top performers get certificates, swag, and premium memberships.",
+            },
+            {
+              icon: "📈",
+              title: "Improve Your Skills",
+              description:
+                "Regular practice with quality problems to enhance your coding abilities.",
+            },
+            {
+              icon: "🌐",
+              title: "Global Ranking",
+              description:
+                "See how you stack up against coders from around the world.",
+            },
+            {
+              icon: "💼",
+              title: "Career Opportunities",
+              description: "Get noticed by recruiters from top tech companies.",
+            },
+          ].map((feature, index) => (
+            <Grid
+              item
+              xs={12}
+              sm={6}
+              md={3}
+              key={index}
               sx={{
-                position: "absolute",
-                top: "50%",
-                left: 0,
-                right: 0,
                 display: "flex",
-                justifyContent: "space-between",
-                px: 2,
+                justifyContent: "center",
               }}
             >
-
-            </Box>
-
-          </Grid>
-
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                style={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  textAlign: "center",
+                  padding: "1.5rem 1rem",
+                  borderRadius: "12px",
+                  background: "rgba(255,255,255,0.05)",
+                  backdropFilter: "blur(5px)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  width: "100%",
+                  maxWidth: "280px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "2.5rem",
+                    mb: 2,
+                  }}
+                >
+                  {feature.icon}
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontWeight: "bold",
+                    color: "white",
+                    mb: 1.5,
+                    fontFamily: "DM Sans, sans-serif",
+                    fontSize: { xs: "1rem", md: "1.1rem" },
+                  }}
+                >
+                  {feature.title}
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "rgba(255,255,255,0.7)",
+                    fontFamily: "DM Sans, sans-serif",
+                    fontSize: { xs: "0.85rem", md: "0.9rem" },
+                  }}
+                >
+                  {feature.description}
+                </Typography>
+              </motion.div>
+            </Grid>
+          ))}
         </Grid>
       </Box>
 
-      {/* Upcoming Conding Contest Information */}
-      
-      <Typography
-        sx={{
-          color: "#b7c4c3",
-          mt: 4,
-          mb: 3,
-          fontFamily: "DM Sans, sans-serif",
-          alignSelf: "flex-start",
-          ml: { xs: 8, md: 12 },
-          fontSize: { xs: "1rem", sm: "1rem", md: "1.5rem" },
-        }}
-      >
-        Upcoming Contests
-      </Typography>
-      
-      {/* need three four boxes */}
-      <Box
-  sx={{
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 3,
-    width: "100%",
-    flexWrap: "wrap",
-    px: 3,
-  }}
->
-  {[2, 3, 4].map((contestNumber) => (
-    <Box
-      key={contestNumber}
-      sx={{
-        width: { xs: "100%", sm: "45%", md: "30%" },
-        borderRadius: "12px",
-        overflow: "hidden",
-        background: "rgba(255, 255, 255, 0.11)",
-        backdropFilter: "blur(10px)",
-        border: "1px solid rgba(255, 255, 255, 0.18)",
-        p: 3,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-      }}
-    >
-      {/* Contest Title */}
-      <Typography
-        variant="subtitle2"
-        sx={{
-          color: "#4972c4",
-          fontFamily: "DM Sans, sans-serif",
-          mb: 1,
-        }}
-      >
-        CodeCompete Contest
-      </Typography>
 
-      {/* Contest Name */}
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: "bold",
-          color: "white",
-          fontFamily: "DM Sans, sans-serif",
-          mb: 2,
-        }}
-      >
-        Weekly Contest {contestNumber}
-      </Typography>
 
-      {/* Calendar Icon & Timing */}
-      <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-        <CalendarIcon
-          size={18}
-          style={{ marginRight: "8px", color: "#347aeb" }}
-        />
-        <Typography
-          sx={{
-            fontFamily: "DM Sans, sans-serif",
-            color: "white",
-          }}
-        >
-          Every Sunday, 8:00 AM - 10:00 PM IST
-        </Typography>
-      </Box>
-
-      {/* Problem Description */}
-      <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-        <Box component="span" sx={{ mr: 1, color: "#347aeb" }}>
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.11 21 21 20.1 21 19V5C21 3.9 20.11 3 19 3ZM10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"
-              fill="currentColor"
-            />
-          </svg>
-        </Box>
-        <Typography sx={{ fontFamily: "DM Sans, sans-serif", color: "white" }}>
-          Problems
-        </Typography>
-      </Box>
-
-      {/* View Details Button */}
-      <Button
-        variant="outlined"
-        sx={{
-          borderRadius: "8px",
-          textTransform: "none",
-          fontFamily: "DM Sans, sans-serif",
-          borderColor: "#FFD700",
-          color: "#FFD700",
-          "&:hover": {
-            backgroundColor: "#FFD700",
-            color: "#1a1919",
-          },
-          px: 3,
-        }}
-      >
-        View details
-      </Button>
-    </Box>
-  ))}
-</Box>
-        
     </Box>
   );
 };
