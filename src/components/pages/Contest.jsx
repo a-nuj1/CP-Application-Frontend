@@ -13,6 +13,9 @@ import {
   StarIcon,
   ChevronRight,
   ChevronLeft,
+  Trophy,
+  Archive,
+  ArrowRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { keyframes } from "@emotion/react";
@@ -988,7 +991,106 @@ const Contest = () => {
         </Grid>
       </Box>
 
-
+      {/* Past Contest */}
+      <div className="w-full mx-auto mt-10 px-4 md:px-0 ">
+      <Typography
+          sx={{
+            color: "#FFD700",
+            mt: 4,
+            mb: 4,
+            fontFamily: "DM Sans, sans-serif",
+            fontSize: { xs: "1.2rem", sm: "1.3rem", md: "1.8rem" },
+            fontWeight: "bold",
+            textAlign: "center",
+            position: "relative",
+            display: "inline-block",
+            width: "100%",
+            "&:after": {
+              content: '""',
+              position: "absolute",
+              bottom: "-8px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "100px",
+              height: "3px",
+              background:
+                "linear-gradient(90deg, transparent, #FFD700, transparent)",
+              borderRadius: "3px",
+            },
+          }}
+        >
+          Previous Contests
+        </Typography>
+        
+        <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700/50 backdrop-blur-sm">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="text-gray-400 border-b border-gray-700/50">
+                  <th className="text-left pb-3 pl-2">Contest</th>
+                  <th className="text-left pb-3">Date</th>
+                  <th className="text-left pb-3">Participants</th>
+                  <th className="text-right pb-3 pr-2">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-gray-700/50 hover:bg-gray-700/20">
+                  <td className="py-4 pl-2">
+                    <div className="font-medium">Weekly Contest #41</div>
+                    <div className="text-sm text-gray-400">Standard rated contest</div>
+                  </td>
+                  <td className="py-4">May 29, 2023</td>
+                  <td className="py-4">1,248</td>
+                  <td className="py-4 pr-2 text-right">
+                    <button className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center justify-end w-full">
+                      View <ChevronRight className="ml-1" size={16} />
+                    </button>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-700/50 hover:bg-gray-700/20">
+                  <td className="py-4 pl-2">
+                    <div className="font-medium">Weekly Contest #40</div>
+                    <div className="text-sm text-gray-400">Standard rated contest</div>
+                  </td>
+                  <td className="py-4">May 22, 2023</td>
+                  <td className="py-4">1,187</td>
+                  <td className="py-4 pr-2 text-right">
+                    <button className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center justify-end w-full">
+                      View <ChevronRight className="ml-1" size={16} />
+                    </button>
+                  </td>
+                </tr>
+                <tr className="border-b border-gray-700/50 hover:bg-gray-700/20">
+                  <td className="py-4 pl-2">
+                    <div className="font-medium">May Challenge</div>
+                    <div className="text-sm text-gray-400">Monthly extended contest</div>
+                  </td>
+                  <td className="py-4">May 15-20, 2023</td>
+                  <td className="py-4">2,456</td>
+                  <td className="py-4 pr-2 text-right">
+                    <button className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center justify-end w-full">
+                      View <ChevronRight className="ml-1" size={16} />
+                    </button>
+                  </td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+          
+          <div className="flex justify-center mt-6">
+            <button className="px-6 py-2 border border-gray-600 text-gray-300 hover:bg-gray-700/50 font-medium rounded-lg transition-all flex items-center">
+              View All Past Contests
+              <ArrowRight className="ml-2" size={16} />
+            </button>
+          </div>
+        </div>
+       
+      
+      <div className="absolute bottom-10 right-10 w-24 h-24 text-amber-400/20 z-0">
+        <Trophy className="w-full h-full" />
+      </div>
+      </div>
 
     </Box>
   );
