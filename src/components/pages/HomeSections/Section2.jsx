@@ -1,251 +1,391 @@
 import React, { useState, useEffect } from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { Typography, Box, Container, Card, CardContent } from "@mui/material";
-import vanillaTilt from "vanilla-tilt";
+import { Box, Container, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiArrowRight } from "react-icons/fi";
 
-const glowColors = [
-  "rgba(214, 88, 208, 0.5)",
-  "rgba(0, 255, 127, 0.5)",
-  "rgba(30, 144, 255, 0.5)",
-  "rgba(255, 99, 71, 0.5)",
-  "rgba(117, 230, 228, 0.5)",
+const features = [
+  {
+    title: "Structured Learning Paths",
+    description: "Our curriculum is designed by experts to take you from basics to advanced concepts systematically",
+    icon: "📊",
+    color: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  },
+  {
+    title: "Real-time Feedback",
+    description: "Get instant analysis of your solutions with detailed performance metrics",
+    icon: "⚡",
+    color: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+  },
+  {
+    title: "Competitive Environment",
+    description: "Challenge yourself against peers in weekly contests with live leaderboards",
+    icon: "🏆",
+    color: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+  },
+  {
+    title: "Comprehensive Resources",
+    description: "Access to curated problem sets, video explanations, and community solutions",
+    icon: "📚",
+    color: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+  },
 ];
 
-function useTypingEffect(text, speed) {
-  const [displayText, setDisplayText] = useState("");
+const FeatureHighlight = ({ activeIndex }) => {
+  const activeFeature = features[activeIndex];
 
-  useEffect(() => {
-    let i = 0;
-    setDisplayText("");
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5 }}
+      style={{
+        background: activeFeature.color,
+        borderRadius: "24px",
+        padding: "40px",
+        height: "400px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        position: "relative",
+        overflow: "hidden",
+        boxShadow: `0 20px 40px -10px ${activeFeature.color.split("0%")[0]}50)`,
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.15) 0%, transparent 60%)",
+          zIndex: 1,
+        }}
+      />
 
-    const interval = setInterval(() => {
-      if (i < text.length) {
-        setDisplayText((prev) => prev + text[i]);
-        i++;
-      } else {
-        clearInterval(interval);
-      }
-    }, speed);
+      <motion.div
+        style={{ zIndex: 2 }}
+        initial={{ scale: 0.9 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.2 }}
+      >
+        <Typography
+          variant="h3"
+          sx={{
+            color: "white",
+            fontWeight: "bold",
+            mb: 2,
+            fontSize: { xs: "1.8rem", md: "2.5rem" },
+            fontFamily: '"DM Sans", sans-serif',
+          }}
+        >
+          {activeFeature.title}
+        </Typography>
 
-    return () => clearInterval(interval);
-  }, [text, speed]);
+        <Typography
+          variant="body1"
+          sx={{
+            color: "rgba(255,255,255,0.9)",
+            fontSize: "1.1rem",
+            mb: 4,
+            maxWidth: { xs: "100%", md: "80%" },
+            fontFamily: '"DM Sans", sans-serif',
+          }}
+        >
+          {activeFeature.description}
+        </Typography>
 
-  return displayText;
-}
+        <motion.div
+          whileHover={{ x: 5 }}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            color: "white",
+            cursor: "pointer",
+            fontWeight: "bold",
+            fontFamily: '"DM Sans", sans-serif',
+          }}
+        >
+          Learn more <FiArrowRight style={{ marginLeft: "8px" }} />
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        style={{
+          position: "absolute",
+          right: "40px",
+          bottom: "40px",
+          fontSize: "120px",
+          opacity: 0.2,
+          zIndex: 1,
+        }}
+        animate={{ rotate: [0, 10, -10, 0] }}
+        transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+      >
+        {activeFeature.icon}
+      </motion.div>
+    </motion.div>
+  );
+};
 
 function Section2() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } =
-      e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - left) / width) * 100;
-    const y = ((e.clientY - top) / height) * 100;
-
-    e.currentTarget.style.setProperty("--x", `${x}%`);
-    e.currentTarget.style.setProperty("--y", `${y}%`);
-  };
   useEffect(() => {
-    const tilt = document.querySelector(".tilt");
-    vanillaTilt.init(tilt, {
-      max: 2,
-      speed: 10,
-      // glare: true,
-      // "max-glare": 0.50,
-      // "glare-prerender": false,
-      reverse: true,
-    });
-  });
-
-
-  const javaCode = `PPublic class Main {
-    public static void main(String[] args) {
-        int result = sum(10);
-        System.out.println(result);
-    }
-    
-    public static int sum(int k) {
-        if (k > 0) {
-            return k + sum(k - 1);
-        } else {
-            return 0;
-        }
-    }
-}`;
-
-  const typedText = useTypingEffect(javaCode, 30);
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % features.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Box
       sx={{
-        backgroundRepeat: "no-repeat",
-        color: "white",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        px: 3,
-        mt: 10,
+        py: 10,
         position: "relative",
-        vh:"90"
+        overflow: "hidden",
       }}
     >
-      {/* Blur Effect at the Top */}
-      <Box
-        sx={{
-          width: "300px",
-          height: "300px",
-          borderRadius: "50%",
-          backgroundColor: "rgba(255, 230, 0, 0.28)",
-          filter: "blur(100px)",
-          position: "absolute",
-          top: 40,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: -1,
-          pointerEvents: "none",
-        }}
-      />
-
-      <Container sx={{ textAlign: "center", mt: "15vh", width: "100%" }}>
-        {/* Heading */}
-        <Typography
-          variant="h2"
-          sx={{
-            mb: 1,
-            fontFamily: "DM Sans, sans-serif",
-            fontWeight: "bold",
-            fontSize: { xs: "1.9rem", sm: "2.8rem", md: "2.9rem" },
-            lineHeight: { xs: "1.2", sm: "1.3", md: "1.4" },
-          }}
-        >
-          Why Choose Us?
-        </Typography>
-
-
-        {/* TO DO - Check this section again !  */}
-
-        {/* Subheading */}
-        <Typography
-          variant="h6"
-          sx={{
-            color: "gray",
-            mb: 5,
-            px: { xs: "1rem", sm: "2rem", md: "8rem" },
-            fontSize: { xs: "0.89rem", sm: "0.89rem", md: "1.08rem" },
-            opacity: 0.8,
-          }}
-        >
-          Your journey to success starts here – explore, learn, and grow with us!
-        </Typography>
-
-        <Card
-        className="tilt glow-card"
-        onMouseMove={handleMouseMove}
-          sx={{
-            width: "100%",
-            height: "80vh",
-            background: "rgba(26, 25, 25, 1)",
-            color: "white",
-            borderRadius: "1rem",
-            p: 3,
-            mb: 2,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            overflow: "hidden",
-            "--glow-color": glowColors[1],
-          }}
-        >
-          {/* First CardContent */}
-          <CardContent>
-            <Typography variant="h5" sx={{ fontWeight: "bold",  }}>
-              Comprehensive Curriculum
-            </Typography>
-            <Typography sx={{ mt: 2, textAlign: "center" }}>
-              Our curriculum covers all essential topics and concepts of DSA to help
-              you ace your interviews.
-            </Typography>
-          </CardContent>
-
-          {/* Responsive Layout */}
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: { xs: "column", sm: "row" },
-              alignItems: "start",
-              width: "100%",
-              height:"auto",
-              mt: 4,
-              gap: 2,
-            }}
-          >
-            {/* Left Section - Text */}
-            <CardContent
+      <Container maxWidth="lg">
+        {!isMobile && (
+          <>
+            <Typography
+              variant="h2"
               sx={{
-                flex: 1,
                 textAlign: "center",
-                px: { xs: 1, sm: 3 }
-                ,
+                mb: 2,
+                fontWeight: "bold",
+                color: "white",
+                fontSize: { xs: "2.2rem", md: "3rem" },
+                fontFamily: '"DM Sans", sans-serif',
               }}
             >
-              <Typography
-                variant="body1"
-                sx={{ color: "#ff9800", fontWeight: "bold" }}
-              >
-                Coding Practice
-              </Typography>
-              <Typography variant="h4" sx={{ fontWeight: "bold", }}>
-                Code On CODECOMPETE
-              </Typography>
-              <Typography sx={{ mt: 2, color: "gray" }}>
-                Whether you're fine-tuning your code or exploring new languages,
-                Quick Compiler simplifies the coding process, making it faster
-                and more accessible for every developer.
-              </Typography>
-            </CardContent>
+              Why Choose{" "}
+              <span style={{ color: theme.palette.primary.main }}>CodeCompete</span>?
+            </Typography>
 
-            {/* Right Section - Code Display */}
-            <CardContent
+            <Typography
+              variant="body1"
               sx={{
-                flex: 1,
-                width: "100%",
-                px: { xs: 2, sm: 3 },
+                textAlign: "center",
+                color: "rgba(255,255,255,0.7)",
+                maxWidth: "700px",
+                mx: "auto",
+                mb: 6,
+                fontSize: { xs: "1rem", md: "1.1rem" },
+                fontFamily: '"DM Sans", sans-serif',
+              }}
+            >
+              We're redefining how developers prepare for technical interviews through gamified learning and real-world challenges.
+            </Typography>
+          </>
+        )}
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: 4,
+            alignItems: "center",
+          }}
+        >
+          {/* Feature selector - Hidden on mobile */}
+          {!isMobile && (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                width: "280px",
+                mb: { xs: 4, md: 0 },
+              }}
+            >
+              {features.map((feature, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => setActiveIndex(index)}
+                  style={{
+                    background: index === activeIndex ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.05)",
+                    borderRadius: "12px",
+                    padding: "16px",
+                    cursor: "pointer",
+                    borderLeft: index === activeIndex ? `4px solid ${theme.palette.primary.main}` : "4px solid transparent",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 2,
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        background: index === activeIndex ? "white" : "rgba(255,255,255,0.2)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: index === activeIndex ? theme.palette.primary.main : "white",
+                        fontSize: "20px",
+                      }}
+                    >
+                      {feature.icon}
+                    </Box>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        color: "white",
+                        fontWeight: index === activeIndex ? "bold" : "normal",
+                        fontSize: "1rem",
+                        fontFamily: '"DM Sans", sans-serif',
+                      }}
+                    >
+                      {feature.title}
+                    </Typography>
+                  </Box>
+                </motion.div>
+              ))}
+            </Box>
+          )}
+
+          {/* Main feature display - Always visible */}
+          <Box
+            sx={{
+              flex: 1,
+              minHeight: { xs: "350px", md: "400px" },
+              width: "100%",
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <FeatureHighlight key={activeIndex} activeIndex={activeIndex} />
+            </AnimatePresence>
+          </Box>
+        </Box>
+
+        {/* Benefits section - Only 3 cards */}
+        <Box
+          sx={{
+            mt: 8,
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+            },
+            gap: 3,
+          }}
+        >
+          {[
+            {
+              title: "Weekly Coding Contests",
+              description: "Compete in timed challenges and climb the leaderboard",
+              icon: "⏱️",
+              color: "rgba(100, 210, 255, 0.1)"
+            },
+            {
+              title: "DSA Problem Bank",
+              description: "500+ categorized problems with detailed solutions",
+              icon: "📚",
+              color: "rgba(255, 150, 100, 0.1)"
+            },
+            {
+              title: "Performance Analytics",
+              description: "Track your progress with detailed statistics",
+              icon: "📊",
+              color: "rgba(150, 255, 150, 0.1)"
+            }
+          ].map((benefit, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{
+                y: -5,
+                transition: { duration: 0.2 }
               }}
             >
               <Box
                 sx={{
-                  width: "100%",
-                  borderRadius: "10px",
-                  border: "1px solid #333",
-                  
-                  p: { xs: 0, sm: 3, md: 4 },
-                  backgroundColor: "#1e1e1e",
+                  background: benefit.color,
+                  borderRadius: "16px",
+                  p: 3,
+                  height: "100%",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: "0 10px 20px rgba(0,0,0,0.3)",
+                    borderColor: theme.palette.primary.main
+                  }
                 }}
               >
-                <SyntaxHighlighter
-                  language="java"
-                  style={dark}
-                  customStyle={{
-                    fontFamily: "Courier New, monospace",
-                    fontSize: "0.65rem", 
-                    background: "transparent",
-                    padding: "10px",
-                    border: "none",
-                    boxShadow: "none",
-                    whiteSpace: "pre-wrap",
-                    overflowX: "hidden",
-                    wordBreak: "break-word", 
+                <motion.div
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                  style={{
+                    fontSize: "2.5rem",
+                    marginBottom: "16px"
                   }}
                 >
-                  {typedText || "// Typing..."}
-                </SyntaxHighlighter>
+                  {benefit.icon}
+                </motion.div>
+                
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: "white",
+                    fontFamily: '"DM Sans", sans-serif',
+                    fontWeight: "bold",
+                    mb: 1
+                  }}
+                >
+                  {benefit.title}
+                </Typography>
+                
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: "rgba(255,255,255,0.7)",
+                    fontFamily: '"DM Sans", sans-serif'
+                  }}
+                >
+                  {benefit.description}
+                </Typography>
+                
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileHover={{ width: "100%" }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    height: "2px",
+                    background: theme.palette.primary.main,
+                    marginTop: "16px"
+                  }}
+                />
+                
+                
               </Box>
-            </CardContent>
-          </Box>
-        </Card>
-
-
+            </motion.div>
+          ))}
+        </Box>
       </Container>
     </Box>
   );
