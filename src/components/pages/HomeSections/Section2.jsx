@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
-
+import { useNavigate } from "react-router-dom";
 const features = [
   {
     title: "Structured Learning Paths",
@@ -32,7 +32,7 @@ const features = [
 
 const FeatureHighlight = ({ activeIndex }) => {
   const activeFeature = features[activeIndex];
-
+  const navigate = useNavigate();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -98,6 +98,7 @@ const FeatureHighlight = ({ activeIndex }) => {
 
         <motion.div
           whileHover={{ x: 5 }}
+          onClick={() =>navigate("/")}
           style={{
             display: "inline-flex",
             alignItems: "center",

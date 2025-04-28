@@ -474,7 +474,9 @@ export default function DSAConcepts() {
                   <span className="text-xs text-gray-500">
                     {index === 0 ? '~4 weeks' : index === 1 ? '~6 weeks' : '~8 weeks'} to complete
                   </span>
-                  <button className="text-yellow-400 text-sm font-medium hover:text-yellow-300 transition-colors duration-200 flex items-center">
+                  <button 
+                  onClick={()=> navigate(`/learning-path/${level.toLowerCase()}`)}
+                  className="text-yellow-400 text-sm font-medium hover:text-yellow-300 transition-colors duration-200 flex items-center">
                     View Path <FaChevronRight className="ml-1 h-3 w-3" />
                   </button>
                 </div>

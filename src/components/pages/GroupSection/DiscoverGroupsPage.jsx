@@ -1,6 +1,7 @@
 import { FaSearch, FaUsers, FaArrowRight, FaStar, FaFilter } from 'react-icons/fa';
 import { useState } from 'react';
 import { Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const mockGroups = [
   {
@@ -60,6 +61,7 @@ const mockGroups = [
 ];
 
 export default function DiscoverGroupsPage() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [showFilters, setShowFilters] = useState(false);
@@ -236,7 +238,9 @@ export default function DiscoverGroupsPage() {
                       <FaUsers className="mr-1 text-yellow-400" />
                       <span>{group.members.toLocaleString()} members</span>
                     </div>
-                    <button className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-gray-900 bg-yellow-500 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-200 transform hover:scale-105">
+                    <button 
+                    onClick={()=> navigate('/joining') }
+                    className="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md shadow-sm text-gray-900 bg-yellow-500 hover:bg-yellow-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-200 transform hover:scale-105">
                       Join <FaArrowRight className="ml-1" />
                     </button>
                   </div>

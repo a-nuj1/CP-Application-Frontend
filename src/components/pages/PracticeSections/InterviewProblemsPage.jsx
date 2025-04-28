@@ -460,6 +460,7 @@ function InterviewProblemsPage() {
             <div className="space-y-3">
               {currentProblems.map((problem) => (
                 <div
+                  onClick={()=>navigate('/practice/problem')}
                   key={problem.id}
                   className="group flex items-center justify-between p-4 bg-gray-700/50 rounded-lg border border-gray-700 hover:border-yellow-400 cursor-pointer transition-colors duration-200"
                 >

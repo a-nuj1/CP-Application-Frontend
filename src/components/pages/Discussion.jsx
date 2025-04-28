@@ -12,6 +12,8 @@ import {
   FaBookmark,
 } from "react-icons/fa";
 
+import { useNavigate } from "react-router-dom";
+
 const Discussion = () => {
   // Sample data for discussion posts
   const discussionPosts = [
@@ -29,14 +31,14 @@ const Discussion = () => {
           <p>I've been working on a large React application and noticed some performance issues, especially when rendering large lists of components. I've tried using React.memo and useCallback, but I'm still experiencing lag.</p>
           <p>Here's an example of my current component structure:</p>
           <pre><code>function MyComponent({ items }) {
-  return (
-      <div>
-          {items.map(item => (
-              <Item key={item.id} data={item} />
-          ))}
-      </div>
-  );
-}</code></pre>
+            return (
+                <div>
+                    {items.map(item => (
+                        <Item key={item.id} data={item} />
+                    ))}
+                </div>
+            );
+          }</code></pre>
           <p>What other optimization techniques should I consider? I've heard about virtualization but not sure how to implement it properly.</p>
       `,
     },
@@ -80,17 +82,19 @@ const Discussion = () => {
           <p>I'm learning algorithms and data structures, but I'm having trouble understanding Big O notation. I know it's about time complexity, but how do we actually calculate it?</p>
           <p>For example, what's the Big O of this simple function?</p>
           <pre><code>function sumArray(arr) {
-  let sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-      sum += arr[i];
-  }
-  return sum;
-}</code></pre>
+            let sum = 0;
+            for (let i = 0; i < arr.length; i++) {
+                sum += arr[i];
+            }
+            return sum;
+          }</code></pre>
           <p>And how would it compare to a nested loop version?</p>
           <p>Also, when we say O(n log n), what does that actually mean in practical terms?</p>
       `,
     },
   ];
+
+  const navigate = useNavigate();
 
   // State management
   const [currentPosts, setCurrentPosts] = useState([...discussionPosts]);

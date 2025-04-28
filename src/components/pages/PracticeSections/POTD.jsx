@@ -191,7 +191,9 @@ export default function POTD() {
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
+
                   onClick={() => navigate(`/solve/potd/${problem.id}`)}
+                  
                   className="w-full py-3 rounded-lg bg-gradient-to-r from-yellow-500 to-yellow-600 text-gray-900 font-medium hover:from-yellow-400 hover:to-yellow-500 transition-all duration-200"
                 >
                   Solve Challenge
@@ -251,7 +253,7 @@ export default function POTD() {
                   : 'bg-transparent text-gray-300 hover:bg-gray-700'
               }`}
             >
-              Previous POTDs
+              Yesterday's Problems
             </button>
           </div>
         </div>

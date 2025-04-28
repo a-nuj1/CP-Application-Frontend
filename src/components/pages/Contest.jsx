@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import contest from "../../assets/contestre.png";
 import {
   Box,
@@ -51,6 +52,7 @@ export const Logo = () => {
 };
 
 const Contest = () => {
+  const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width:600px)");
 
   const [timeLeft, setTimeLeft] = useState({
@@ -498,6 +500,7 @@ const Contest = () => {
               {/* Action Buttons */}
               <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
                 <Button
+                  onClick={()=>navigate('/registerconetstpage')}
                   variant="contained"
                   sx={{
                     borderRadius: "8px",
@@ -518,6 +521,7 @@ const Contest = () => {
                   Register Now
                 </Button>
                 <Button
+                  onClick={() => navigate("/viewcontest")}
                   variant="outlined"
                   sx={{
                     borderRadius: "8px",
@@ -845,6 +849,7 @@ const Contest = () => {
 
                 <Box sx={{ mt: "auto", width: "100%" }}>
                   <Button
+                   onClick={() => navigate("/viewcontest")}
                     fullWidth
                     variant="outlined"
                     sx={{
@@ -1042,7 +1047,9 @@ const Contest = () => {
                   <td className="py-4">May 29, 2023</td>
                   <td className="py-4">1,248</td>
                   <td className="py-4 pr-2 text-right">
-                    <button className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center justify-end w-full">
+                    <button 
+                      onClick={() => navigate("/participatecontest")}
+                    className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center justify-end w-full">
                       View <ChevronRight className="ml-1" size={16} />
                     </button>
                   </td>
@@ -1079,7 +1086,9 @@ const Contest = () => {
           </div>
           
           <div className="flex justify-center mt-6">
-            <button className="px-6 py-2 border border-gray-600 text-gray-300 hover:bg-gray-700/50 font-medium rounded-lg transition-all flex items-center">
+            <button
+              onClick={()=> navigate("/practice/past")}
+            className="px-6 py-2 border border-gray-600 text-gray-300 hover:bg-gray-700/50 font-medium rounded-lg transition-all flex items-center">
               View All Past Contests
               <ArrowRight className="ml-2" size={16} />
             </button>

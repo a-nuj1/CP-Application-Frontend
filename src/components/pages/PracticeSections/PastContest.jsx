@@ -134,7 +134,9 @@ export default function PastContestsPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    
                     onClick={() => navigate(`/contest/${contest.id}`)}
+
                     className="w-full flex items-center justify-center px-4 py-3 rounded-lg bg-gray-700 text-gray-200 hover:bg-gray-600 hover:text-white transition-colors duration-200"
                   >
                     <span className="font-medium mr-2">Practice</span>
@@ -215,6 +217,7 @@ export default function PastContestsPage() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => navigate('/contest')}
               className="mt-4 md:mt-0 px-6 py-3 rounded-lg bg-yellow-500 text-gray-900 font-medium hover:bg-yellow-400 transition-colors duration-200"
             >
               View Upcoming Contests

@@ -44,7 +44,7 @@ function Footer() {
 
   const quickLinks = [
     { name: 'Home', url: '#' },
-    { name: 'Challenges', url: '#' },
+    { name: 'Contest', url: '#' },
     { name: 'Leaderboard', url: '#' },
     { name: 'Blog', url: '#' },
     { name: 'About Us', url: '#' }
@@ -85,21 +85,18 @@ function Footer() {
         <motion.div 
           initial="hidden"
           whileInView="visible"
-          // duration={0.5}
-          // transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           variants={containerVariants}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left"
         >
           {/* Left Section - Logo & Social */}
           <motion.div variants={itemVariants} className="space-y-6">
-            <div className="flex items-center">
+            <div className="flex justify-center md:justify-start items-center">
               <motion.div 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative"
               >
-                {/* <div className="absolute -inset-2 bg-indigo-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-200 animate-tilt"></div> */}
                 <img 
                   src={logo} 
                   alt="CodeCompete Logo" 
@@ -111,17 +108,17 @@ function Footer() {
               </span>
             </div>
             
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-sm px-4 md:px-0">
               Compete, collaborate, and grow your coding skills with developers worldwide.
             </p>
             
-            <div className="flex space-x-4">
+            <div className="flex justify-center md:justify-start space-x-4">
               {socialLinks.map((link, index) => (
                 <motion.a
                   key={link.name}
                   custom={index}
                   variants={itemVariants}
-                  href={link.url}
+                  // href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative group p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-100"
@@ -139,9 +136,7 @@ function Footer() {
           {/* Middle Section - Quick Links */}
           <motion.div variants={itemVariants} className="md:pl-8">
             <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
-
-
-            <ul className="space-y-3 ">
+            <ul className="space-y-3">
               {quickLinks.map((link, index) => (
                 <motion.li 
                   key={link.name}
@@ -150,12 +145,10 @@ function Footer() {
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-
                   <a 
                     href={link.url} 
-                    className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 flex items-center "
+                    className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 flex justify-center md:justify-start items-center"
                   >
-                    {/* <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-2"></span> */}
                     {link.name}
                   </a>
                 </motion.li>
@@ -177,46 +170,26 @@ function Footer() {
                 >
                   <a 
                     href={link.url} 
-                    className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 flex items-center"
+                    className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 flex justify-center md:justify-start items-center"
                   >
-                    {/* <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mr-2"></span> */}
                     {link.name}
                   </a>
                 </motion.li>
               ))}
             </ul>
-            
-            {/* <motion.div 
-              variants={itemVariants}
-              className="mt-8 p-4 bg-gray-800/50 rounded-lg border border-gray-700/50"
-              whileHover={{ scale: 1.02 }}
-            >
-              <h4 className="text-sm font-medium text-white mb-2">Newsletter</h4>
-              <p className="text-xs text-gray-400 mb-3">Subscribe to get updates on new challenges</p>
-              <div className="flex">
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
-                  className="flex-grow px-3 py-2 bg-gray-900 text-white text-sm rounded-l-md focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                />
-                <button className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-r-md hover:opacity-90 transition-opacity">
-                  Join
-                </button>
-              </div>
-            </motion.div> */}
           </motion.div>
         </motion.div>
 
         {/* Bottom Section */}
         <motion.div 
           variants={itemVariants}
-          className="mt-12 pt-8 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center"
+          className="mt-12 pt-8 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center text-center md:text-left"
         >
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-sm order-2 md:order-1 mt-4 md:mt-0">
             © {new Date().getFullYear()} codecompete. All rights reserved.
           </p>
-          <div className="mt-4 md:mt-0 flex items-center space-x-6">
-            <p className="text-gray-500 text-sm flex items-center">
+          <div className="order-1 md:order-2 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 space-x-0 md:space-x-6">
+            <p className="text-gray-500 text-sm flex items-center justify-center">
               <svg className="w-4 h-4 mr-1 text-red-500" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
               </svg>
@@ -225,7 +198,6 @@ function Footer() {
             <div className="flex space-x-4">
               <a href="#" className="text-gray-500 hover:text-yellow-400 transition-colors text-sm">Terms</a>
               <a href="#" className="text-gray-500 hover:text-yellow-400 transition-colors text-sm">Privacy</a>
-              
             </div>
           </div>
         </motion.div>

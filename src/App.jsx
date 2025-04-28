@@ -14,6 +14,8 @@ import POTD from "./components/pages/PracticeSections/POTD";
 import Discussion from "./components/pages/Discussion";
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
+import UnderDevelopment from "./components/pages/UnderDevelopment ";
+
 
 function App() {
   return (
@@ -36,6 +38,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         
+        <Route path="*" element={<UnderDevelopment />} />
       </Routes>
       <Footer/>
     </Router>

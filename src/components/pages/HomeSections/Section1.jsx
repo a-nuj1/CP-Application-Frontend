@@ -9,28 +9,34 @@ import {
   Button,
 } from "@mui/material";
 import { IoChevronForwardOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 
 const features = [
   {
     title: "Master DSA Concepts",
     desc: "Explore a structured collection of problems and learning paths designed to enhance your algorithmic skills effectively.",
+    path: "/practice/dsa",
   },
   {
     title: "Compete in Weekly Contests",
     desc: "Join exciting coding battles, challenge peers, and climb the leaderboard every week to prove your problem-solving skills.",
+    path: "/contest",
   },
   {
-    title: "Top Problems of the Week",
-    desc: "Solve trending challenges picked by experts, track your progress, and refine your coding approach with real-time insights.",
+    title: "Problems of the Day",
+    desc: "Tackle daily coding challenges that are handpicked to boost your skills and keep you sharp for interviews.",
+    path: "/practice/potd",
   },
   {
     title: "Practice Previous Contests",
     desc: "Revisit past competitions, analyze detailed solutions, and sharpen your strategy to perform better in upcoming contests.",
+    path: "/practice/past",
   },
   {
     title: "Connect & Grow",
     desc: "Engage with a community of coders, participate in discussions, and collaborate on projects to grow as a programmer.",
+    path: "/groups/discover"
   },
 ];
 
@@ -43,6 +49,9 @@ const glowColors = [
 ];
 
 function Section1() {
+
+  const navigate = useNavigate();
+
   const handleMouseMove = (e) => {
     const { left, top, width, height } =
       e.currentTarget.getBoundingClientRect();
@@ -150,6 +159,8 @@ function Section1() {
                   </Typography>
                 </CardContent>
                 <Button
+
+                  onClick={() => navigate(feature.path)}
                   variant="outlined"
                   sx={{
                     borderColor: "#FFD700",
