@@ -148,7 +148,7 @@ function Section2() {
         position: "relative",
         overflow: "hidden",
       }}
-    >
+    >  
       <Container maxWidth="lg">
         {!isMobile && (
           <>
@@ -271,121 +271,155 @@ function Section2() {
           </Box>
         </Box>
 
-        {/* Benefits section - Only 3 cards */}
-        <Box
-          sx={{
-            mt: 8,
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2, 1fr)",
-              md: "repeat(3, 1fr)",
-            },
-            gap: 3,
+        {/* Benefits section - Only 3 cards with floating particles */}
+<Box
+  sx={{
+    mt: 8,
+    display: "grid",
+    gridTemplateColumns: {
+      xs: "1fr",
+      sm: "repeat(2, 1fr)",
+      md: "repeat(3, 1fr)",
+    },
+    gap: 3,
+  }}
+>
+  {[
+    {
+      title: "Weekly Coding Contests",
+      description: "Compete in timed challenges and climb the leaderboard",
+      icon: "⏱️",
+      color: "rgba(100, 210, 255, 0.1)"
+    },
+    {
+      title: "DSA Problem Bank",
+      description: "500+ categorized problems with detailed solutions",
+      icon: "📚",
+      color: "rgba(255, 150, 100, 0.1)"
+    },
+    {
+      title: "Performance Analytics",
+      description: "Track your progress with detailed statistics",
+      icon: "📊",
+      color: "rgba(150, 255, 150, 0.1)"
+    }
+  ].map((benefit, index) => (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{
+        y: -5,
+        transition: { duration: 0.2 }
+      }}
+    >
+      <Box
+        sx={{
+          position: "relative",
+          overflow: "hidden",
+          background: benefit.color,
+          borderRadius: "16px",
+          p: 3,
+          height: "100%",
+          border: "1px solid rgba(255,255,255,0.1)",
+          transition: "all 0.3s ease",
+          "&:hover": {
+            transform: "translateY(-5px)",
+            boxShadow: "0 10px 20px rgba(0,0,0,0.3)",
+            borderColor: theme.palette.primary.main
+          }
+        }}
+      >
+        {/* Floating particles */}
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: [0, 0.3, 0],
+              x: Math.random() * 100 - 50,
+              y: Math.random() * 100 - 50
+            }}
+            transition={{
+              duration: Math.random() * 5 + 5,
+              repeat: Infinity,
+              delay: Math.random() * 2
+            }}
+            style={{
+              position: 'absolute',
+              width: '6px',
+              height: '6px',
+              background: 'white',
+              borderRadius: '50%',
+              zIndex: 0,
+              top: `${Math.random() * 80 + 10}%`,
+              left: `${Math.random() * 80 + 10}%`
+            }}
+          />
+        ))}
+
+        <motion.div
+          animate={{
+            rotate: [0, 5, -5, 0],
+            scale: [1, 1.05, 1]
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          style={{
+            fontSize: "2.5rem",
+            marginBottom: "16px",
+            position: "relative",
+            zIndex: 1
           }}
         >
-          {[
-            {
-              title: "Weekly Coding Contests",
-              description: "Compete in timed challenges and climb the leaderboard",
-              icon: "⏱️",
-              color: "rgba(100, 210, 255, 0.1)"
-            },
-            {
-              title: "DSA Problem Bank",
-              description: "500+ categorized problems with detailed solutions",
-              icon: "📚",
-              color: "rgba(255, 150, 100, 0.1)"
-            },
-            {
-              title: "Performance Analytics",
-              description: "Track your progress with detailed statistics",
-              icon: "📊",
-              color: "rgba(150, 255, 150, 0.1)"
-            }
-          ].map((benefit, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{
-                y: -5,
-                transition: { duration: 0.2 }
-              }}
-            >
-              <Box
-                sx={{
-                  background: benefit.color,
-                  borderRadius: "16px",
-                  p: 3,
-                  height: "100%",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  transition: "all 0.3s ease",
-                  "&:hover": {
-                    transform: "translateY(-5px)",
-                    boxShadow: "0 10px 20px rgba(0,0,0,0.3)",
-                    borderColor: theme.palette.primary.main
-                  }
-                }}
-              >
-                <motion.div
-                  animate={{
-                    rotate: [0, 5, -5, 0],
-                    scale: [1, 1.05, 1]
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  style={{
-                    fontSize: "2.5rem",
-                    marginBottom: "16px"
-                  }}
-                >
-                  {benefit.icon}
-                </motion.div>
-                
-                <Typography
-                  variant="h6"
-                  sx={{
-                    color: "white",
-                    fontFamily: '"DM Sans", sans-serif',
-                    fontWeight: "bold",
-                    mb: 1
-                  }}
-                >
-                  {benefit.title}
-                </Typography>
-                
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: "rgba(255,255,255,0.7)",
-                    fontFamily: '"DM Sans", sans-serif'
-                  }}
-                >
-                  {benefit.description}
-                </Typography>
-                
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.3 }}
-                  style={{
-                    height: "2px",
-                    background: theme.palette.primary.main,
-                    marginTop: "16px"
-                  }}
-                />
-                
-                
-              </Box>
-            </motion.div>
-          ))}
+          {benefit.icon}
+        </motion.div>
+        
+        <Box sx={{ position: "relative", zIndex: 1 }}>
+          <Typography
+            variant="h6"
+            sx={{
+              color: "white",
+              fontFamily: '"DM Sans", sans-serif',
+              fontWeight: "bold",
+              mb: 1
+            }}
+          >
+            {benefit.title}
+          </Typography>
+          
+          <Typography
+            variant="body2"
+            sx={{
+              color: "rgba(255,255,255,0.7)",
+              fontFamily: '"DM Sans", sans-serif'
+            }}
+          >
+            {benefit.description}
+          </Typography>
         </Box>
+        
+        <motion.div
+          initial={{ width: 0 }}
+          whileHover={{ width: "100%" }}
+          transition={{ duration: 0.3 }}
+          style={{
+            height: "2px",
+            background: theme.palette.primary.main,
+            marginTop: "16px",
+            position: "relative",
+            zIndex: 1
+          }}
+        />
+      </Box>
+    </motion.div>
+  ))}
+</Box>
       </Container>
     </Box>
   );

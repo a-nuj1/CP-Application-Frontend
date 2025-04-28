@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Dialog,
@@ -11,14 +11,18 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import EmailIcon from "@mui/icons-material/Email";
-
+import { motion, AnimatePresence } from "framer-motion";
+import { FiMail, FiX } from "react-icons/fi";
 
 const Section5 = () => {
   const [open, setOpen] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,18 +32,29 @@ const Section5 = () => {
     setOpen(false);
   };
 
-  const handleMouseMove = (e) => {
-    const { left, top, width, height } =
-      e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - left) / width) * 100;
-    const y = ((e.clientY - top) / height) * 100;
-
-    e.currentTarget.style.setProperty("--x", `${x}%`);
-    e.currentTarget.style.setProperty("--y", `${y}%`);
+  // Floating avatar animation variants
+  const avatarVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: (i) => ({
+      y: 0,
+      opacity: 1,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.5,
+        y: { type: "spring", stiffness: 100 }
+      }
+    }),
+    float: {
+      y: [0, -10, 0],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
   };
 
   return (
-
     <Box
       sx={{
         position: "relative",
@@ -48,109 +63,198 @@ const Section5 = () => {
         alignItems: "center",
         px: isMobile ? 2 : 4,
         py: isMobile ? 6 : 8,
+        overflow: "hidden"
       }}
     >
-      
-      <Box
-        sx={{
-            width: { xs: "150px", sm: "280px" },
-            height: { xs: "150px", sm: "280px" },
+      {/* Animated glow effect */}
+      {loaded && (
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          style={{
+            width: isMobile ? "150px" : "280px",
+            height: isMobile ? "150px" : "280px",
             borderRadius: "50%",
             backgroundColor: "rgba(255, 230, 0, 0.33)",
             filter: "blur(100px)",
             position: "absolute",
-            // top: 70,
             left: "50%",
             transform: "translateX(-50%)",
+            zIndex: 0
           }}
-      />
+        />
+      )}
 
-      
-      <Box
-        className=" tilt glow-card max-w-7xl mx-auto p-6 rounded-xl flex flex-col items-center text-center"
-        onMouseMove={handleMouseMove}
-        sx={{
-          position: "relative", 
-          width: "100%",
-          maxWidth: "1080px",
-          backdropFilter: "blur(100px)",
-          backgroundColor: "rgba(255, 255, 255, 0.16)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          boxShadow: "0 8px 32px rgba(255, 255, 255, 0.1)",
-          borderRadius: "16px",
-          px: isMobile ? 2 : 6,
-          py: isMobile ? 3.5 : 5,
-          zIndex: 1, 
-          overflow: "hidden",
-          "--glow-color": "rgba(30, 144, 255, 0.5)",
-        }}
-      >
-        <AvatarGroup
-          max={4}
-          sx={{
-            mb: 3,
-            "& .MuiAvatar-root": {
-              width: isMobile ? 30 : 40,
-              height: isMobile ? 30 : 40,
-              border: "2px solid #333",
-            },
+      {/* Main card */}
+      {loaded && (
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="glow-card"
+          style={{
+            position: "relative",
+            width: "100%",
+            maxWidth: "1080px",
+            backdropFilter: "blur(16px)",
+            backgroundColor: "rgba(255, 255, 255, 0.1)",
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+            borderRadius: "16px",
+            padding: isMobile ? "1.5rem" : "2.5rem",
+            zIndex: 1,
+            overflow: "hidden"
           }}
         >
-          <Avatar alt="Person 1" src="https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80?height=56&width=56" />
-          <Avatar alt="Person 2" src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80?height=56&width=56" />
-          
-          <Avatar alt="Person 4" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?height=56&width=56" />
-          <Avatar alt="Person 5" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?height=56&width=56" />
-        </AvatarGroup>
+          {/* Floating particles */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: [0, 0.4, 0],
+                x: Math.random() * 200 - 100,
+                y: Math.random() * 200 - 100
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                delay: Math.random() * 5
+              }}
+              style={{
+                position: 'absolute',
+                width: '6px',
+                height: '6px',
+                background: 'white',
+                borderRadius: '50%',
+                zIndex: 0,
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`
+              }}
+            />
+          ))}
 
-        <Typography
-          sx={{
-            fontFamily: "DM Sans, sans-serif",
-            fontSize: isMobile ? "1.2rem" : "1.3rem",
-            color: "white",
-            fontWeight: "bold",
-            mb: 2,
-          }}
-        >
-          Still have questions?
-        </Typography>
+          {/* Animated border gradient */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ duration: 1 }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(45deg, rgba(255,215,0,0.1) 0%, rgba(30,144,255,0.1) 50%, rgba(255,215,0,0.1) 100%)',
+              zIndex: -1,
+              borderRadius: '16px'
+            }}
+          />
 
-        <Typography
-          sx={{
-            fontFamily: "DM Sans, sans-serif",
-            fontSize: isMobile ? "0.8rem" : "1rem",
-            color: "white",
-            opacity: 0.9,
-            mb: 4,
-            maxWidth: "90%",
-            mx: "auto",
-            fontWeight: isTablet ? "normal" : "medium",
-          }}
-        >
-          Can't find the answer you're looking for? Please chat with our friendly team.
-        </Typography>
+          <Box sx={{ textAlign: "center", position: "relative", zIndex: 2 }}>
+            {/* Animated avatars */}
+            <AvatarGroup
+              max={4}
+              sx={{
+                mb: 3,
+                justifyContent: "center",
+                "& .MuiAvatar-root": {
+                  width: isMobile ? 36 : 48,
+                  height: isMobile ? 36 : 48,
+                  border: "2px solid rgba(255,255,255,0.2)",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "scale(1.1)",
+                    borderColor: theme.palette.primary.main
+                  }
+                }
+              }}
+            >
+              {[
+                "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80?height=56&width=56",
+                "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80?height=56&width=56",
+                "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?height=56&width=56",
+                "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?height=56&width=56"
+              ].map((src, i) => (
+                <motion.div
+                  key={i}
+                  custom={i}
+                  initial="hidden"
+                  animate={["visible", "float"]}
+                  variants={avatarVariants}
+                >
+                  <Avatar 
+                    alt={`Person ${i+1}`} 
+                    src={src} 
+                  />
+                </motion.div>
+              ))}
+            </AvatarGroup>
 
-        <Button
-          variant="outlined"
-          onClick={handleClickOpen}
-          sx={{
-            borderColor: "#FFD700",
-            color: "#FFD700",
-            fontWeight: "bold",
-            borderRadius: "20px",
-            px: isMobile ? 3 : 4,
-            py: 1.2,
-            fontSize: isMobile ? "0.875rem" : "1rem",
-            "&:hover": {
-              borderColor: "#FFD700",
-              backgroundColor: "rgba(255, 215, 0, 0.1)",
-            },
-          }}
-        >
-          Get in Touch
-        </Button>
-      </Box>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Typography
+                variant="h5"
+                sx={{
+                  fontFamily: "DM Sans, sans-serif",
+                  fontWeight: "bold",
+                  mb: 2,
+                  color: "white",
+                  fontSize: isMobile ? "1.4rem" : "1.8rem"
+                }}
+              >
+                Still have questions?
+              </Typography>
 
+              <Typography
+                variant="body1"
+                sx={{
+                  fontFamily: "DM Sans, sans-serif",
+                  color: "rgba(255,255,255,0.8)",
+                  mb: 4,
+                  maxWidth: "90%",
+                  mx: "auto",
+                  fontSize: isMobile ? "0.9rem" : "1.1rem"
+                }}
+              >
+                Can't find the answer you're looking for? Our team is ready to help!
+              </Typography>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                variant="outlined"
+                onClick={handleClickOpen}
+                startIcon={<FiMail />}
+                sx={{
+                  borderColor: "#FFD700",
+                  color: "#FFD700",
+                  fontWeight: "bold",
+                  borderRadius: "12px",
+                  px: isMobile ? 3 : 4,
+                  py: 1.5,
+                  fontSize: isMobile ? "0.875rem" : "1rem",
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 215, 0, 0.1)",
+                    borderColor: "#FFD700"
+                  }
+                }}
+              >
+                Contact Our Team
+              </Button>
+            </motion.div>
+          </Box>
+        </motion.div>
+      )}
+
+      {/* Dialog */}
       <Dialog
         open={open}
         onClose={handleClose}
@@ -159,43 +263,118 @@ const Section5 = () => {
         PaperProps={{
           sx: {
             borderRadius: "16px",
-            p: 2,
             backgroundColor: "#1a1a1a",
             color: "white",
-          },
+            border: "1px solid rgba(255,255,255,0.1)",
+            overflow: "hidden",
+            position: "relative"
+          }
         }}
       >
-        <DialogTitle sx={{ textAlign: "center", pt: 4 }}>
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-            <EmailIcon sx={{ fontSize: 64, color: "#FFD700" }} />
-          </Box>
-        </DialogTitle>
-        <DialogContent>
-          <Typography variant="h6" component="p" align="center" sx={{ mb: 1 }}>
-            Drop your question/query at codecompete@gmail.com.
-          </Typography>
-          <Typography variant="body1" component="p" align="center" sx={{ mb: 4, opacity: 0.8 }}>
-            We will get back to you soon.
-          </Typography>
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+        {/* Dialog background elements */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "radial-gradient(circle at 50% 100%, rgba(30,30,30,0.9) 0%, #0a0a0a 100%)",
+            zIndex: 0
+          }}
+        />
+        
+        <Box sx={{ position: "relative", zIndex: 1 }}>
+          <DialogTitle sx={{ textAlign: "center", pt: 4 }}>
+            <motion.div
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring" }}
+            >
+              <Box
+                sx={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "80px",
+                  height: "80px",
+                  borderRadius: "50%",
+                  background: "rgba(255,215,0,0.1)",
+                  mb: 2
+                }}
+              >
+                <FiMail style={{ fontSize: "2.5rem", color: "#FFD700" }} />
+              </Box>
+            </motion.div>
             <Button
               onClick={handleClose}
-              variant="contained"
               sx={{
-                backgroundColor: "#FFD700",
-                color: "#000",
-                fontWeight: "bold",
-                borderRadius: "20px",
-                px: 4,
+                position: "absolute",
+                right: 16,
+                top: 16,
+                minWidth: 0,
+                color: "rgba(255,255,255,0.6)",
                 "&:hover": {
-                  backgroundColor: "#e6c300",
-                },
+                  color: "white"
+                }
               }}
             >
-              Close
+              <FiX />
             </Button>
-          </Box>
-        </DialogContent>
+          </DialogTitle>
+          <DialogContent>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Typography 
+                variant="h6" 
+                align="center" 
+                sx={{ mb: 1, fontWeight: "bold" }}
+              >
+                Drop us a message
+              </Typography>
+              <Typography 
+                variant="body1" 
+                align="center" 
+                sx={{ mb: 4, opacity: 0.8 }}
+              >
+                Email us at{" "}
+                <Box 
+                  component="span" 
+                  sx={{ 
+                    color: "#FFD700",
+                    fontWeight: "bold"
+                  }}
+                >
+                  codecompete@gmail.com
+                </Box>
+              </Typography>
+              <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+                <motion.div whileHover={{ scale: 1.03 }}>
+                  <Button
+                    onClick={handleClose}
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#FFD700",
+                      color: "#000",
+                      fontWeight: "bold",
+                      borderRadius: "12px",
+                      px: 4,
+                      py: 1.5,
+                      "&:hover": {
+                        backgroundColor: "#e6c300",
+                      }
+                    }}
+                  >
+                    Got It
+                  </Button>
+                </motion.div>
+              </Box>
+            </motion.div>
+          </DialogContent>
+        </Box>
       </Dialog>
     </Box>
   );
