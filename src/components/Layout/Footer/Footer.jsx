@@ -46,10 +46,10 @@ function Footer() {
   ];
 
   const quickLinks = [
-    { name: 'Home', url: '/' },
-    { name: 'Contest', url: '/contest' },
-    { name: 'Leaderboard', url: '/leaderboard' },
-    { name: 'Blog', url: '/blog' }
+    { name: 'Home', path: '/' },
+    { name: 'Contest', path: '/contest' },
+    { name: 'Leaderboard', path: '/leaderboard' },
+    { name: 'Blog', path: '/blog' }
   ];
 
   const legalLinks = [
@@ -147,8 +147,8 @@ function Footer() {
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <a 
-                    href={link.url} 
-                    className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 flex justify-center md:justify-start items-center"
+                    onClick={() => navigate(link.path)}
+                    className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 flex justify-center md:justify-start items-center sm:justify-center"
                   >
                     {link.name}
                   </a>

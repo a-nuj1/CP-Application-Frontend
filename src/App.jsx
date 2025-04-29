@@ -30,7 +30,12 @@ function App() {
       <Header/>
       <FloatingParticles/>
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={
+          <>
+            <Home/>
+            <MobileToast show={true}/>
+          </>
+        } />
         <Route path="/contest" element = {<Contest/>}/>
         <Route path="/groups/my" element={<CreateGroupPage />} />
         <Route path="/groups/discover" element={<DiscoverGroupsPage />} />
@@ -51,7 +56,7 @@ function App() {
         <Route path="*" element={<UnderDevelopment />} />
       </Routes>
       <Footer/>
-      <MobileToast />
+      
     </Router>
   );
 }

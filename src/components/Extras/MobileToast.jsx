@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const MobileToast = () => {
+const MobileToast = ({show}) => {
   useEffect(() => {
-    if (window.innerWidth < 768) {
+    if (show && window.innerWidth < 768) {
       toast.info('For better experience, we recommend using CodeCompete on desktop', {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: 1500,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: false,
@@ -24,20 +24,10 @@ const MobileToast = () => {
           }
       });
     }
-  }, []);
+  }, [show]);
 
   return (
-    <ToastContainer
-      position="top-center"
-      autoClose={2000}
-      newestOnTop
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss={false}
-      draggable
-      pauseOnHover={false}
-      limit={1}
-    />
+    <ToastContainer/>
   );
 };
 
