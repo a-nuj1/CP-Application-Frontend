@@ -15,8 +15,12 @@ import Discussion from "./components/pages/Discussion";
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
 import UnderDevelopment from "./components/Extras/UnderDevelopment ";
+import MobileToast from "./components/Extras/MobileToast";
 import MeetDeveloper from "./components/Extras/MeetDeveloper";
 import ScrollToTop from "./components/Extras/ScrollToTop";
+
+import Leaderboard from "./components/pages/Leaderboard";
+
 
 
 function App() {
@@ -37,6 +41,7 @@ function App() {
         <Route path="/practice/potd" element={<POTD />} />
         
         <Route path="/blog" element={<Discussion />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
         
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -46,6 +51,7 @@ function App() {
         <Route path="*" element={<UnderDevelopment />} />
       </Routes>
       <Footer/>
+      <MobileToast />
     </Router>
   );
 }

@@ -29,9 +29,9 @@ const features = [
     path: "/practice/potd",
   },
   {
-    title: "Practice Previous Contests",
-    desc: "Revisit past competitions, analyze detailed solutions, and sharpen your strategy to perform better in upcoming contests.",
-    path: "/practice/past",
+    title: "Global & Group Leaderboards",
+    desc: "Compare your performance on the world stage and within your coding communities all in one place.",
+    path: "/leaderboard"
   },
   {
     title: "Connect & Grow",

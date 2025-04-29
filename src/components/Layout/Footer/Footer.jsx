@@ -46,10 +46,10 @@ function Footer() {
   ];
 
   const quickLinks = [
-    { name: 'Home', url: '#' },
-    { name: 'Contest', url: '#' },
-    { name: 'Leaderboard', url: '#' },
-    { name: 'Blog', url: '#' }
+    { name: 'Home', url: '/' },
+    { name: 'Contest', url: '/contest' },
+    { name: 'Leaderboard', url: '/leaderboard' },
+    { name: 'Blog', url: '/blog' }
   ];
 
   const legalLinks = [
@@ -63,7 +63,7 @@ function Footer() {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.3
+        delayChildren: 0.2
       }
     }
   };
@@ -74,7 +74,7 @@ function Footer() {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.3,
         ease: "easeOut"
       }
     }

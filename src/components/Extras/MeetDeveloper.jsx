@@ -141,7 +141,7 @@ const MeetDeveloper = () => {
             problems into elegant, scalable solutions.
             <br/>
             <br />
-            On another note, I’ve solved over 900 problems on LeetCode and reached a peak rating of 1855 🚀 — always sharpening my problem-solving skills.
+            On another note, I’ve solved over 900 problems on LeetCode and reached a peak rating of 1855  — always sharpening my problem-solving skills.
             <br/>
             <br />
             My go-to tech stack:{" "}
