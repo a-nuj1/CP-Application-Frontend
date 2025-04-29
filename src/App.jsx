@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Layout/Header/Header";
-import FloatingParticles from "./components/pages/FloatingParticles";
+import FloatingParticles from "./components/Extras/FloatingParticles";
 import Home from "./components/pages/Home";
 import Footer from "./components/Layout/Footer/Footer";
 import Contest from "./components/pages/Contest";
@@ -14,12 +14,15 @@ import POTD from "./components/pages/PracticeSections/POTD";
 import Discussion from "./components/pages/Discussion";
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
-import UnderDevelopment from "./components/pages/UnderDevelopment ";
+import UnderDevelopment from "./components/Extras/UnderDevelopment ";
+import MeetDeveloper from "./components/Extras/MeetDeveloper";
+import ScrollToTop from "./components/Extras/ScrollToTop";
 
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Header/>
       <FloatingParticles/>
       <Routes>
@@ -37,6 +40,8 @@ function App() {
         
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+
+        <Route path="/aboutme" element={<MeetDeveloper />} />
         
         <Route path="*" element={<UnderDevelopment />} />
       </Routes>

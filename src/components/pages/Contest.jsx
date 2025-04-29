@@ -927,11 +927,11 @@ const Contest = () => {
               description:
                 "See how you stack up against coders from around the world.",
             },
-            {
-              icon: "💼",
-              title: "Career Opportunities",
-              description: "Get noticed by recruiters from top tech companies.",
-            },
+            // {
+            //   icon: "💼",
+            //   title: "Career Opportunities",
+            //   description: "Get noticed by recruiters from top tech companies.",
+            // },
           ].map((feature, index) => (
             <Grid
               item
@@ -1062,7 +1062,9 @@ const Contest = () => {
                   <td className="py-4">May 22, 2023</td>
                   <td className="py-4">1,187</td>
                   <td className="py-4 pr-2 text-right">
-                    <button className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center justify-end w-full">
+                    <button 
+                     onClick={() => navigate("/participatecontest")}
+                    className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center justify-end w-full">
                       View <ChevronRight className="ml-1" size={16} />
                     </button>
                   </td>
@@ -1075,7 +1077,9 @@ const Contest = () => {
                   <td className="py-4">May 15-20, 2023</td>
                   <td className="py-4">2,456</td>
                   <td className="py-4 pr-2 text-right">
-                    <button className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center justify-end w-full">
+                    <button 
+                     onClick={() => navigate("/participatecontest")}
+                    className="text-blue-400 hover:text-blue-300 text-sm font-medium flex items-center justify-end w-full">
                       View <ChevronRight className="ml-1" size={16} />
                     </button>
                   </td>

@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import logo from '../../../assets/logo.png'; 
+import { useNavigate } from 'react-router-dom';
 
 function Footer() {
+  const navigate = useNavigate();
+
   const socialLinks = [
     {
       name: 'Twitter',
@@ -46,14 +49,12 @@ function Footer() {
     { name: 'Home', url: '#' },
     { name: 'Contest', url: '#' },
     { name: 'Leaderboard', url: '#' },
-    { name: 'Blog', url: '#' },
-    { name: 'About Us', url: '#' }
+    { name: 'Blog', url: '#' }
   ];
 
   const legalLinks = [
     { name: 'Privacy Policy', url: '#' },
     { name: 'Terms of Service', url: '#' },
-    { name: 'Cookie Policy', url: '#' }
   ];
 
   const containerVariants = {
@@ -188,7 +189,38 @@ function Footer() {
           <p className="text-gray-500 text-sm order-2 md:order-1 mt-4 md:mt-0">
             © {new Date().getFullYear()} codecompete. All rights reserved.
           </p>
-          <div className="order-1 md:order-2 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 space-x-0 md:space-x-6">
+          
+          {/* Meet the Developer Button */}
+          <motion.div 
+            className="order-1 md:order-2"
+            initial={{ scale: 1 }}
+            animate={{ 
+              scale: [1, 1.05, 1],
+              
+            }}
+            transition={{
+              duration: 2,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "loop"
+            }}
+            
+            whileHover={{ 
+              // scale: 1.05,
+              boxShadow: "0 0 15px rgba(192, 132, 252, 0.6)",
+              backgroundColor: "rgba(192, 132, 252, 0.2)",
+              
+            }}
+          >
+            <button 
+              onClick={()=>navigate('/aboutme')}
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-sm font-medium rounded-md cursor-pointer transition-all duration-200 hover:text-yellow-300"
+            >
+              <span className="mr-2">👨‍💻</span> Meet the Developer
+            </button>
+          </motion.div>
+          
+          <div className="order-3 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 space-x-0 md:space-x-6 mt-4 md:mt-0">
             <p className="text-gray-500 text-sm flex items-center justify-center">
               <svg className="w-4 h-4 mr-1 text-red-500" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />

@@ -1,31 +1,43 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Typography, useTheme, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+
+
 const features = [
   {
-    title: "Structured Learning Paths",
-    description: "Our curriculum is designed by experts to take you from basics to advanced concepts systematically",
-    icon: "📊",
+    title: "Topic-Wise Competitive Contests",
+    description:
+      "Tackle coding challenges tailored to specific topics. Know the focus in advance and sharpen your skills with targeted preparation.",
+    icon: "🎯",
     color: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
   },
   {
-    title: "Real-time Feedback",
-    description: "Get instant analysis of your solutions with detailed performance metrics",
-    icon: "⚡",
+    title: "Fair & Flexible Competition",
+    description:
+      "Join contests at your convenience within a 24-hour window — with unique question sets to ensure fairness and zero cheating.",
+    icon: "⏳",
     color: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
   },
   {
-    title: "Competitive Environment",
-    description: "Challenge yourself against peers in weekly contests with live leaderboards",
-    icon: "🏆",
+    title: "Local & Global Leaderboards",
+    description:
+      "Compete with friends in private groups or climb the global ladder. Your performance is ranked and tracked in real time.",
+    icon: "📊",
     color: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
   },
   {
-    title: "Comprehensive Resources",
-    description: "Access to curated problem sets, video explanations, and community solutions",
-    icon: "📚",
+    title: "Engaging Community & Rewards",
+    description:
+      "Discuss problems, share insights, and win exciting prizes — all while learning and growing with a vibrant coding community.",
+    icon: "🎁",
     color: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
   },
 ];
@@ -59,7 +71,8 @@ const FeatureHighlight = ({ activeIndex }) => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.15) 0%, transparent 60%)",
+          background:
+            "radial-gradient(circle at 70% 30%, rgba(255,255,255,0.15) 0%, transparent 60%)",
           zIndex: 1,
         }}
       />
@@ -98,7 +111,7 @@ const FeatureHighlight = ({ activeIndex }) => {
 
         <motion.div
           whileHover={{ x: 5 }}
-          onClick={() =>navigate("/")}
+          onClick={() => navigate("/")}
           style={{
             display: "inline-flex",
             alignItems: "center",
@@ -149,7 +162,7 @@ function Section2() {
         position: "relative",
         overflow: "hidden",
       }}
-    >  
+    >
       <Container maxWidth="lg">
         {!isMobile && (
           <>
@@ -165,7 +178,10 @@ function Section2() {
               }}
             >
               Why Choose{" "}
-              <span style={{ color: theme.palette.primary.main }}>CodeCompete</span>?
+              <span style={{ color: theme.palette.primary.main }}>
+                CodeCompete
+              </span>
+              ?
             </Typography>
 
             <Typography
@@ -180,7 +196,8 @@ function Section2() {
                 fontFamily: '"DM Sans", sans-serif',
               }}
             >
-              We're redefining how developers prepare for technical interviews through gamified learning and real-world challenges.
+              We're redefining how developers prepare for technical interviews
+              through gamified learning and real-world challenges.
             </Typography>
           </>
         )}
@@ -211,11 +228,17 @@ function Section2() {
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setActiveIndex(index)}
                   style={{
-                    background: index === activeIndex ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.05)",
+                    background:
+                      index === activeIndex
+                        ? "rgba(255,255,255,0.1)"
+                        : "rgba(255,255,255,0.05)",
                     borderRadius: "12px",
                     padding: "16px",
                     cursor: "pointer",
-                    borderLeft: index === activeIndex ? `4px solid ${theme.palette.primary.main}` : "4px solid transparent",
+                    borderLeft:
+                      index === activeIndex
+                        ? `4px solid ${theme.palette.primary.main}`
+                        : "4px solid transparent",
                     transition: "all 0.3s ease",
                   }}
                 >
@@ -231,11 +254,17 @@ function Section2() {
                         width: "40px",
                         height: "40px",
                         borderRadius: "50%",
-                        background: index === activeIndex ? "white" : "rgba(255,255,255,0.2)",
+                        background:
+                          index === activeIndex
+                            ? "white"
+                            : "rgba(255,255,255,0.2)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        color: index === activeIndex ? theme.palette.primary.main : "white",
+                        color:
+                          index === activeIndex
+                            ? theme.palette.primary.main
+                            : "white",
                         fontSize: "20px",
                       }}
                     >
@@ -273,154 +302,155 @@ function Section2() {
         </Box>
 
         {/* Benefits section - Only 3 cards with floating particles */}
-<Box
-  sx={{
-    mt: 8,
-    display: "grid",
-    gridTemplateColumns: {
-      xs: "1fr",
-      sm: "repeat(2, 1fr)",
-      md: "repeat(3, 1fr)",
-    },
-    gap: 3,
-  }}
->
-  {[
-    {
-      title: "Weekly Coding Contests",
-      description: "Compete in timed challenges and climb the leaderboard",
-      icon: "⏱️",
-      color: "rgba(100, 210, 255, 0.1)"
-    },
-    {
-      title: "DSA Problem Bank",
-      description: "500+ categorized problems with detailed solutions",
-      icon: "📚",
-      color: "rgba(255, 150, 100, 0.1)"
-    },
-    {
-      title: "Performance Analytics",
-      description: "Track your progress with detailed statistics",
-      icon: "📊",
-      color: "rgba(150, 255, 150, 0.1)"
-    }
-  ].map((benefit, index) => (
-    <motion.div
-      key={index}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{
-        y: -5,
-        transition: { duration: 0.2 }
-      }}
-    >
-      <Box
-        sx={{
-          position: "relative",
-          overflow: "hidden",
-          background: benefit.color,
-          borderRadius: "16px",
-          p: 3,
-          height: "100%",
-          border: "1px solid rgba(255,255,255,0.1)",
-          transition: "all 0.3s ease",
-          "&:hover": {
-            transform: "translateY(-5px)",
-            boxShadow: "0 10px 20px rgba(0,0,0,0.3)",
-            borderColor: theme.palette.primary.main
-          }
-        }}
-      >
-        {/* Floating particles */}
-        {[...Array(5)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: [0, 0.3, 0],
-              x: Math.random() * 100 - 50,
-              y: Math.random() * 100 - 50
-            }}
-            transition={{
-              duration: Math.random() * 5 + 5,
-              repeat: Infinity,
-              delay: Math.random() * 2
-            }}
-            style={{
-              position: 'absolute',
-              width: '6px',
-              height: '6px',
-              background: 'white',
-              borderRadius: '50%',
-              zIndex: 0,
-              top: `${Math.random() * 80 + 10}%`,
-              left: `${Math.random() * 80 + 10}%`
-            }}
-          />
-        ))}
-
-        <motion.div
-          animate={{
-            rotate: [0, 5, -5, 0],
-            scale: [1, 1.05, 1]
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          style={{
-            fontSize: "2.5rem",
-            marginBottom: "16px",
-            position: "relative",
-            zIndex: 1
+        <Box
+          sx={{
+            mt: 8,
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+            },
+            gap: 3,
           }}
         >
-          {benefit.icon}
-        </motion.div>
-        
-        <Box sx={{ position: "relative", zIndex: 1 }}>
-          <Typography
-            variant="h6"
-            sx={{
-              color: "white",
-              fontFamily: '"DM Sans", sans-serif',
-              fontWeight: "bold",
-              mb: 1
-            }}
-          >
-            {benefit.title}
-          </Typography>
-          
-          <Typography
-            variant="body2"
-            sx={{
-              color: "rgba(255,255,255,0.7)",
-              fontFamily: '"DM Sans", sans-serif'
-            }}
-          >
-            {benefit.description}
-          </Typography>
+          {[
+            {
+              title: "Weekly Coding Contests",
+              description:
+                "Compete in timed challenges and climb the leaderboard",
+              icon: "⏱️",
+              color: "rgba(100, 210, 255, 0.1)",
+            },
+            {
+              title: "DSA Problem Bank",
+              description: "500+ categorized problems with detailed solutions",
+              icon: "📚",
+              color: "rgba(255, 150, 100, 0.1)",
+            },
+            {
+              title: "Performance Analytics",
+              description: "Track your progress with detailed statistics",
+              icon: "📊",
+              color: "rgba(150, 255, 150, 0.1)",
+            },
+          ].map((benefit, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{
+                y: -5,
+                transition: { duration: 0.2 },
+              }}
+            >
+              <Box
+                sx={{
+                  position: "relative",
+                  overflow: "hidden",
+                  background: benefit.color,
+                  borderRadius: "16px",
+                  p: 3,
+                  height: "100%",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: "0 10px 20px rgba(0,0,0,0.3)",
+                    borderColor: theme.palette.primary.main,
+                  },
+                }}
+              >
+                {/* Floating particles */}
+                {[...Array(5)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0 }}
+                    animate={{
+                      opacity: [0, 0.3, 0],
+                      x: Math.random() * 100 - 50,
+                      y: Math.random() * 100 - 50,
+                    }}
+                    transition={{
+                      duration: Math.random() * 5 + 5,
+                      repeat: Infinity,
+                      delay: Math.random() * 2,
+                    }}
+                    style={{
+                      position: "absolute",
+                      width: "6px",
+                      height: "6px",
+                      background: "white",
+                      borderRadius: "50%",
+                      zIndex: 0,
+                      top: `${Math.random() * 80 + 10}%`,
+                      left: `${Math.random() * 80 + 10}%`,
+                    }}
+                  />
+                ))}
+
+                <motion.div
+                  animate={{
+                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  style={{
+                    fontSize: "2.5rem",
+                    marginBottom: "16px",
+                    position: "relative",
+                    zIndex: 1,
+                  }}
+                >
+                  {benefit.icon}
+                </motion.div>
+
+                <Box sx={{ position: "relative", zIndex: 1 }}>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: "white",
+                      fontFamily: '"DM Sans", sans-serif',
+                      fontWeight: "bold",
+                      mb: 1,
+                    }}
+                  >
+                    {benefit.title}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "rgba(255,255,255,0.7)",
+                      fontFamily: '"DM Sans", sans-serif',
+                    }}
+                  >
+                    {benefit.description}
+                  </Typography>
+                </Box>
+
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileHover={{ width: "100%" }}
+                  transition={{ duration: 0.3 }}
+                  style={{
+                    height: "2px",
+                    background: theme.palette.primary.main,
+                    marginTop: "16px",
+                    position: "relative",
+                    zIndex: 1,
+                  }}
+                />
+              </Box>
+            </motion.div>
+          ))}
         </Box>
-        
-        <motion.div
-          initial={{ width: 0 }}
-          whileHover={{ width: "100%" }}
-          transition={{ duration: 0.3 }}
-          style={{
-            height: "2px",
-            background: theme.palette.primary.main,
-            marginTop: "16px",
-            position: "relative",
-            zIndex: 1
-          }}
-        />
-      </Box>
-    </motion.div>
-  ))}
-</Box>
       </Container>
     </Box>
   );

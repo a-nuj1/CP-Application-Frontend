@@ -226,7 +226,7 @@ export default function POTD() {
                   <div className="font-medium text-gray-100">User{position}</div>
                   <div className="text-xs text-gray-400">Solved in 45m {position * 10}s</div>
                 </div>
-                <div className="text-yellow-400 font-bold">+{400 - (position * 50)} XP</div>
+                <div className="text-yellow-400 font-bold">+{400 - (position * 50)} Pts</div>
               </div>
             ))}
           </div>
@@ -275,7 +275,7 @@ export default function POTD() {
             </div>
             <div className="flex items-center mt-4 md:mt-0">
               {[1, 2, 3, 4, 5, 6, 7].map(day => (
-                <div key={day} className={`w-10 h-10 rounded-full flex items-center justify-center mx-1 border-2 ${
+                <div key={day} className={`w-8 h-8 rounded-full flex items-center justify-center mx-1 border-2 ${
                   day <= 3 
                     ? 'border-green-400 bg-green-400/10 text-green-400' 
                     : 'border-gray-600 text-gray-500'
