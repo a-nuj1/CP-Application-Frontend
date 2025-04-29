@@ -82,7 +82,7 @@ export default function POTD() {
               <FaCalendarDay className="text-yellow-400 mr-2" />
               <span className="text-yellow-400 font-medium">Daily Challenge</span>
             </div>
-            <h1 className="text-4xl font-extrabold text-gray-100 sm:text-5xl sm:tracking-tight lg:text-6xl mb-4">
+            <h1 className="text-4xl font-extrabold text-gray-100 sm:text-5xl sm:tracking-tight lg:text-5xl mb-4">
               Problem <span className="text-yellow-400">of the Day</span>
             </h1>
             <p className="max-w-2xl mx-auto text-xl text-gray-300 mb-6">

@@ -3,17 +3,15 @@ import { useNavigate } from "react-router-dom";
 
 const UnderDevelopment = () => {
   const navigate = useNavigate();
-
-  // Fun particles for floating animation
   const particles = ["✨", "💫", "🌟", "🌀", "🌈", "🎉", "🪄"];
 
   return (
-    <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden text-white p-4">
-      
+    <div className="relative flex flex-col items-center justify-start min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 overflow-hidden text-white p-4 pt-24">
       {/* Floating particles */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-0">
         {[...Array(25)].map((_, index) => {
-          const randomParticle = particles[Math.floor(Math.random() * particles.length)];
+          const randomParticle =
+            particles[Math.floor(Math.random() * particles.length)];
           const size = `${Math.random() * 1.5 + 1}rem`;
           return (
             <motion.div
@@ -48,12 +46,13 @@ const UnderDevelopment = () => {
         })}
       </div>
 
+      {/* Blurred background circle */}
+      <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[80vw] max-w-[450px] h-[80vw] max-h-[450px] bg-yellow-400/30 blur-[100px] rounded-full z-0 pointer-events-none" />
+
       {/* Spinning Magic Circle */}
       <motion.div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2"
-        animate={{
-          y: [0, -15, 0],
-        }}
+        className="relative z-10 mb-8 mt-[-20px] sm:mt-[-80px] md:mt-[-50px]"
+        animate={{ y: [0, -15, 0] }}
         transition={{
           duration: 3,
           repeat: Infinity,
@@ -61,70 +60,67 @@ const UnderDevelopment = () => {
           ease: "easeInOut",
         }}
       >
-        <div className="relative">
-          {/* Outer spinning circle */}
-          <motion.div
-            className="w-64 h-64 rounded-full border-4 border-dashed border-purple-400 flex items-center justify-center"
-            animate={{
-              rotate: 360,
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          >
-            <div className="w-48 h-48 rounded-full bg-purple-500/10 backdrop-blur-sm flex items-center justify-center">
-              <span className="text-6xl">🧙‍♂️</span>
-            </div>
-          </motion.div>
-        </div>
+        <motion.div
+          className="w-52 h-52 md:w-64 md:h-64 rounded-full border-4 border-dashed border-purple-400 flex items-center justify-center"
+          animate={{ rotate: 360 }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        >
+          <div className="w-36 h-36 md:w-48 md:h-48 rounded-full bg-purple-500/10 backdrop-blur-sm flex items-center justify-center">
+            <span className="text-5xl md:text-6xl">🧙‍♂️</span>
+          </div>
+        </motion.div>
       </motion.div>
 
       {/* Main Content */}
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }} 
-        animate={{ opacity: 1, y: 0 }} 
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
-        className="z-10 text-center mt-80"
+        className="z-10 text-center max-w-2xl px-4"
       >
         <h1 className="text-4xl md:text-6xl font-bold mb-6 text-purple-400">
           Brewing Something Magical!
         </h1>
 
         <motion.p
-          className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto"
+          className="text-lg md:text-2xl text-gray-300 mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
         >
-          Our wizards are busy conjuring up an amazing experience. Please stay tuned!
+          Our wizards are busy conjuring up an amazing experience. Please stay
+          tuned!
         </motion.p>
 
         <motion.div
-          className="bg-gray-800/50 border border-purple-400/30 rounded-lg p-6 mb-8 mx-auto max-w-lg"
+          className="bg-gray-800/50 border border-purple-400/30 rounded-lg p-6 mb-8 mx-auto"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
         >
           <p className="text-purple-300 text-lg mb-2">🪄 Magic Underway 🪄</p>
           <p className="text-gray-300">
-            Things are a bit sparkly and chaotic at the moment. Expect spells, potions, and a lot of wow!
+            Things are a bit sparkly and chaotic at the moment. Expect spells,
+            potions, and a lot of wow!
           </p>
         </motion.div>
 
         <motion.button
           onClick={() => navigate("/")}
-          whileHover={{ 
-            scale: 1.05, 
+          whileHover={{
+            scale: 1.05,
+            boxShadow: "0 0 15px rgba(192, 132, 252, 0.6)",
             backgroundColor: "rgba(192, 132, 252, 0.2)",
-            boxShadow: "0 0 15px rgba(192, 132, 252, 0.4)"
           }}
           whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 bg-purple-500/10 border border-purple-400/50 rounded-full text-purple-300 font-medium text-lg backdrop-blur-sm flex items-center mx-auto gap-2"
+          className="px-6 py-3 bg-purple-500/10 border border-purple-400/50 rounded-full text-purple-300 font-medium text-lg backdrop-blur-sm flex items-center mx-auto gap-2 transition-all duration-150"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.5 }}
+          // transition={{ delay: 1.2, duration: 0.5 }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -142,13 +138,58 @@ const UnderDevelopment = () => {
         </motion.button>
 
         <motion.div
-          className="mt-12 text-gray-200 text-md"
+          className="mt-16 text-gray-200 text-md font-mono text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.5 }}
         >
-          <p>Estimated completion: When the stars align ✨</p>
-          <p className="mt-2">Team status: 1 tired developer with cup of Tea! ☕🪄</p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 0.6 }}
+            className="text-lg mb-2"
+          >
+            <motion.span
+              animate={{ opacity: [0, 1], x: [10, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.2,
+                repeatType: "reverse",
+              }}
+              className="inline-block"
+            >
+              ✨
+            </motion.span>{" "}
+            <span className="text-yellow-300">Estimated completion:</span> When the stars align...
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 0.6 }}
+            className="text-md"
+          >
+            <span className="text-yellow-300">Team Status:</span> 1 tired developer with cup of Tea!
+            <motion.span
+              animate={{ rotate: [0, -10, 10, -10, 0] }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                repeatType: "loop",
+              }}
+              className="inline-block"
+            >
+              ☕
+            </motion.span>
+            + magic spells{" "}
+            <motion.span
+              animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="inline-block"
+            >
+              🪄
+            </motion.span>
+          </motion.p>
         </motion.div>
       </motion.div>
     </div>

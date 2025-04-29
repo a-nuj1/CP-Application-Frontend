@@ -18,7 +18,6 @@ function CreateGroupPage() {
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
   const [tagline, setTagline] = useState("");
-  
 
   const handleCreateGroup = () => {
     const newGroup = {
@@ -59,10 +58,13 @@ function CreateGroupPage() {
   return (
     <div className="min-h-screen bg-black/30 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
+        {/* blur cirlce in bg */}
         <Box
           sx={{
-            width: "450px",
-            height: "450px",
+            width: "80vw",
+            maxWidth: "450px",
+            height: "80vw",
+            maxHeight: "450px",
             borderRadius: "50%",
             backgroundColor: "rgba(255, 230, 0, 0.28)",
             filter: "blur(100px)",
@@ -76,7 +78,7 @@ function CreateGroupPage() {
         />
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-100 sm:text-5xl sm:tracking-tight lg:text-6xl mb-6">
+          <h1 className="text-4xl font-extrabold text-gray-100 sm:text-5xl sm:tracking-tight lg:text-5xl mb-6">
             Create Your <span className="text-yellow-400">Coding Group</span>
           </h1>
           <p className="max-w-xl mx-auto text-xl text-gray-300">
@@ -380,6 +382,5 @@ function CreateGroupPage() {
     </div>
   );
 }
-
 
 export default CreateGroupPage;

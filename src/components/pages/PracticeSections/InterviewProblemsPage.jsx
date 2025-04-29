@@ -315,9 +315,10 @@ function InterviewProblemsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f1117] to-[#1a1d29] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
+        
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-extrabold text-gray-100 sm:text-5xl sm:tracking-tight lg:text-6xl mb-6">
+          <h1 className="text-4xl font-extrabold text-gray-100 sm:text-5xl sm:tracking-tight lg:text-5xl mb-6">
             Master <span className="text-yellow-400">Interview Problems</span>
           </h1>
           <p className="max-w-2xl mx-auto text-xl text-gray-300">

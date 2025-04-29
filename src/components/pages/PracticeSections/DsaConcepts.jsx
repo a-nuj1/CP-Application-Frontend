@@ -270,7 +270,7 @@ export default function DSAConcepts() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl font-extrabold text-gray-100 sm:text-5xl sm:tracking-tight lg:text-6xl mb-6">
+          <h1 className="text-4xl font-extrabold text-gray-100 sm:text-5xl sm:tracking-tight lg:text-5xl mb-6">
             Master <span className="text-yellow-400">DSA Concepts</span>
           </h1>
           <p className="max-w-2xl mx-auto text-xl text-gray-300">
