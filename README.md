@@ -5,6 +5,8 @@
 ## 📃 Description
 CodeCompete is an innovative web application designed for competitive programmers who want to improve their skills, compete with friends, and track their rankings. 
 
+**Live Link** - https://cp-application-frontend.vercel.app/
+
 ### 🌟 Features:
 - **Topic-wise contests** 🏆 – Users can participate in topic-specific coding contests and track their ranks.
 - **Local & Global Rankings** 📊 – Compete with your local group (friends, colleges) or check your global rank.
@@ -32,6 +34,13 @@ The project is built using modern technologies:
 - 🛢 **MongoDB** – NoSQL database for data storage
 
 ---
+
+## Some Screenshots
+![Screenshot 2025-04-30 002450](https://github.com/user-attachments/assets/35e2e99d-057a-4f2f-b05e-8c6b6f398c6d)
+![Screenshot 2025-04-30 002513](https://github.com/user-attachments/assets/596984b2-afac-44db-8755-6c2e453d2ea5)
+![Screenshot 2025-04-30 002628](https://github.com/user-attachments/assets/ae49ce46-e6d9-4e26-831a-01f7dfe26710)
+
+
 
 ## 🏃‍♂️ Getting Started
 
