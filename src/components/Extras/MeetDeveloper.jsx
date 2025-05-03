@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import LogoImg from "../../assets/pp.png";
+import Tabish from "@/assets/bgre.png";
 
 const MeetDeveloper = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -98,104 +99,211 @@ const MeetDeveloper = () => {
       variants={containerVariants}
       className="min-h-screen bg-gray-900 py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="max-w-2xl mx-auto">
-        {/* Profile Section */}
-        <motion.div
-          variants={itemVariants}
-          className="flex flex-col items-center text-center mb-12"
-        >
+      <div className="flex">
+        <div className="max-w-2xl mx-auto">
+          {/* Profile Section */}
           <motion.div
-            whileHover={{ scale: 1.1, rotate: 2 }}
-            transition={{ type: "spring", stiffness: 400 }}
-            className="mb-8 bg-purple-700 p-1 rounded-full shadow-md shadow-purple-500/50 hover:shadow-purple-400/70 transition-shadow duration-300"
+            variants={itemVariants}
+            className="flex flex-col items-center text-center mb-12"
           >
-            <img
-              src={LogoImg}
-              alt="Anuj Gupta"
-              className="w-48 h-48 rounded-full object-cover border-4 border-white"
-            />
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 2 }}
+              transition={{ type: "spring", stiffness: 400 }}
+              className="mb-8 bg-purple-700 p-1 rounded-full shadow-md shadow-purple-500/50 hover:shadow-purple-400/70 transition-shadow duration-300"
+            >
+              <img
+                src={LogoImg}
+                alt="Anuj Gupta"
+                className="w-48 h-48 rounded-full object-cover border-4 border-white"
+              />
+            </motion.div>
+
+            <motion.h1
+              className="text-4xl font-bold text-white mb-2"
+              variants={itemVariants}
+            >
+              Anuj Gupta
+            </motion.h1>
+
+            <motion.p
+              className="text-xl text-purple-300 mb-6"
+              variants={itemVariants}
+            >
+              Full Stack Web Developer
+            </motion.p>
+
+            <motion.p
+              className="text-gray-300 leading-relaxed"
+              variants={itemVariants}
+            >
+              Hey there! 👋 I’m <strong>Anuj Gupta</strong> — a passionate
+              full-stack developer with a love for clean UI, clever logic, and
+              Tea ☕. With 1+ year of experience working on full-stack web apps
+              using React, Node.js, and MongoDB, I thrive on turning complex
+              problems into elegant, scalable solutions.
+              <br />
+              <br />
+              On another note, I’ve solved over 900 problems on LeetCode and
+              reached a peak rating of 1855 — always sharpening my
+              problem-solving skills.
+              <br />
+              <br />
+              My go-to tech stack:{" "}
+              <strong>JavaScript, React, Node.js, Express.js, MongoDB</strong>
+              .
+              <br />
+              <br />
+              Always up for building cool stuff, learning new tricks, or just
+              geeking out over tech.
+            </motion.p>
           </motion.div>
 
-          <motion.h1
-            className="text-4xl font-bold text-white mb-2"
-            variants={itemVariants}
+          {/* Connect Section */}
+          <motion.div
+            variants={cardVariants}
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center"
           >
-            Anuj Gupta
-          </motion.h1>
-
-          <motion.p
-            className="text-xl text-purple-300 mb-6"
-            variants={itemVariants}
-          >
-            Full Stack Web Developer
-          </motion.p>
-
-          <motion.p
-            className="text-gray-300 leading-relaxed"
-            variants={itemVariants}
-          >
-            Hey there! 👋 I’m <strong>Anuj Gupta</strong> — a passionate 
-            full-stack developer with a love for clean UI, clever logic, and
-            Tea ☕. With 1+ year of experience working on full-stack web
-            apps using React, Node.js, and MongoDB, I thrive on turning complex
-            problems into elegant, scalable solutions.
-            <br/>
-            <br />
-            On another note, I’ve solved over 900 problems on LeetCode and reached a peak rating of 1855  — always sharpening my problem-solving skills.
-            <br/>
-            <br />
-            My go-to tech stack:{" "}
-            <strong>JavaScript, React, Node.js, Express.js, MongoDB</strong>
-           .
-            <br />
-            <br />
-            Always up for building cool stuff, learning new tricks, or just
-            geeking out over tech.
-          </motion.p>
-        </motion.div>
-
-        {/* Connect Section */}
-        <motion.div
-          variants={cardVariants}
-          initial="offscreen"
-          whileInView="onscreen"
-          viewport={{ once: true, amount: 0.2 }}
-          className="text-center"
-        >
-          <h2 className="text-2xl font-bold text-white mb-6">
-            Connect With Me
-          </h2>
-          <motion.div className="flex justify-center space-x-6">
-            {socialLinks.map((link, index) => (
-              <motion.a
-                key={link.name}
-                custom={index}
-                variants={itemVariants}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative group p-3 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"
-                whileHover={{ y: -5 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <span className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                <span className="relative flex items-center justify-center w-6 h-6 text-gray-300 group-hover:text-white">
-                  {link.icon}
-                </span>
-                <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 text-xs text-purple-300 transition-opacity duration-300 whitespace-nowrap">
-                  {link.name}
-                </span>
-              </motion.a>
-            ))}
+            <h2 className="text-2xl font-bold text-white mb-6">
+              Connect With Me
+            </h2>
+            <motion.div className="flex justify-center space-x-6">
+              {socialLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  custom={index}
+                  variants={itemVariants}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative group p-3 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <span className="relative flex items-center justify-center w-6 h-6 text-gray-300 group-hover:text-white">
+                    {link.icon}
+                  </span>
+                  <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 text-xs text-purple-300 transition-opacity duration-300 whitespace-nowrap">
+                    {link.name}
+                  </span>
+                </motion.a>
+              ))}
+            </motion.div>
           </motion.div>
-        </motion.div>
 
-        {/* Fun Quote */}
-        <motion.div variants={itemVariants} className="mt-10 text-center">
-          <p className="text-yellow-400 italic">
-            I have a joke on async functions… but you’ll get it later. 😄
-          </p>
-        </motion.div>
+          {/* Fun Quote */}
+          <motion.div variants={itemVariants} className="mt-10 text-center">
+            <p className="text-yellow-400 italic">
+              I have a joke on async functions… but you’ll get it later. 😄
+            </p>
+          </motion.div>
+        </div>
+
+        <div className="max-w-2xl mx-auto">
+          {/* Profile Section */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center text-center mb-12"
+          >
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 2 }}
+              transition={{ type: "spring", stiffness: 400 }}
+              className="mb-8 bg-purple-800 p-1 rounded-full shadow-md shadow-purple-500/50 hover:shadow-purple-400/70 transition-shadow duration-300"
+            >
+              <img
+                src={Tabish}
+                alt="Tabish Javed"
+                className="w-48 h-48 rounded-full object-cover border-4 border-white"
+              />
+            </motion.div>
+
+            <motion.h1
+              className="text-4xl font-bold text-white mb-2"
+              variants={itemVariants}
+            >
+              Tabish Javed
+            </motion.h1>
+
+            <motion.p
+              className="text-xl text-purple-300 mb-6"
+              variants={itemVariants}
+            >
+              Full Stack Web Developer
+            </motion.p>
+
+            <motion.p
+              className="text-gray-300 leading-relaxed"
+              variants={itemVariants}
+            >
+              Hi, I’m <strong>Tabish Javed</strong> — a dedicated full-stack developer with a
+              strong passion for crafting intuitive user interfaces and building
+              robust backend systems. With over a year of hands-on experience
+              developing full-stack web applications using React, Node.js, and
+              MongoDB, I enjoy transforming complex challenges into scalable,
+              maintainable solutions.
+              <br />
+              <br />
+              In addition to my development work, I’ve solved 200+ problems on
+              LeetCode and 100+ on GFG which reflects my
+              continuous commitment to improving my problem-solving abilities.
+              <br />
+              <br />
+              My core tech stack includes: 
+              <strong>JavaScript, React, Nextjs, Node.js, Express.js, and MongoDB, Prisma, NeonDB, Firebase,</strong>.
+              <br />
+              <br />
+              I’m always excited to build meaningful projects, explore new
+              technologies, and collaborate with others who are passionate about
+              tech.
+            </motion.p>
+          </motion.div>
+
+          {/* Connect Section */}
+          <motion.div
+            variants={cardVariants}
+            initial="offscreen"
+            whileInView="onscreen"
+            viewport={{ once: true, amount: 0.2 }}
+            className="text-center"
+          >
+            <h2 className="text-2xl font-bold text-white mb-6">
+              Connect With Me
+            </h2>
+            <motion.div className="flex justify-center space-x-6">
+              {socialLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  custom={index}
+                  variants={itemVariants}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative group p-3 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300"
+                  whileHover={{ y: -5 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  <span className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <span className="relative flex items-center justify-center w-6 h-6 text-gray-300 group-hover:text-white">
+                    {link.icon}
+                  </span>
+                  <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 text-xs text-purple-300 transition-opacity duration-300 whitespace-nowrap">
+                    {link.name}
+                  </span>
+                </motion.a>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Fun Quote */}
+          <motion.div variants={itemVariants} className="mt-10 text-center">
+            <p className="text-yellow-400 italic">
+              I have a joke on async functions… but you’ll get it later. 😄
+            </p>
+          </motion.div>
+        </div>
       </div>
     </motion.div>
   );
